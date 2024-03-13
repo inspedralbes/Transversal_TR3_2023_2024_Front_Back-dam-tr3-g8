@@ -1,11 +1,11 @@
 <template>
   <div>
-    <broadcast />
-    <login />
+    <NuxtLayout :name="layout">
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
 
-<script>
-import broadcast from './pages/broadcast.vue';
-import login from './pages/login.vue';
+<script setup lang="ts">
+   const layout = "tab-selector-bar";
 </script>
