@@ -13,13 +13,13 @@
         <NuxtLink to="/gestio-odoo">Odoo</NuxtLink>
       </v-btn>
       <v-btn class="tab-selector-button">
+        <NuxtLink to="/configuracions-de-joc">Settings</NuxtLink>
+      </v-btn>
+      <v-btn class="tab-selector-button">
         <NuxtLink to="/broadcast">Broadcast</NuxtLink>
       </v-btn>
       <v-btn class="tab-selector-button">
         <NuxtLink to="/serveis-i-processos">Serveis i Processos</NuxtLink>
-      </v-btn>
-      <v-btn class="tab-selector-button">
-        <NuxtLink to="/configuracions-de-joc">Settings</NuxtLink>
       </v-btn>
     </div>
     <slot />
@@ -34,7 +34,9 @@
 }
 
 .selector-bar {
-  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
 }
 
 </style>
