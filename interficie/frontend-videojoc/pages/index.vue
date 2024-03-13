@@ -2,8 +2,7 @@
 
 <template>
   <div>
-    Page: main-menu
-    Welcome bruh
+    <NuxtLink to="/login">Login</NuxtLink>
   </div>
 </template>
 
