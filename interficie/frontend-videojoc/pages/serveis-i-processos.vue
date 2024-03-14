@@ -15,7 +15,7 @@
   justify-content: space-evenly;
   align-items: center;
   height: 100vh;
-  background-image: url('../../assets/serveis-background.png');
+  background-image: url('../../assets-nuxt/serveis-background.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

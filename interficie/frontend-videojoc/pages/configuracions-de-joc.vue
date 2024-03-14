@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('../../assets/configuracions-background.jpg');
+  background-image: url('../../assets-nuxt/configuracions-background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
