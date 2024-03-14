@@ -9,3 +9,16 @@ const client = new MongoClient(uri, {
 });
 const dbName = "Projecte_videojoc";
 
+export async function logejarUser(username, passwd) {
+    return new Promise((resolve, reject) => {
+      usuaris
+        .findOne({ username: username},{contrasenya:passwd})
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((err) => {
+          console.error(err);
+          reject(err);
+        });
+    });
+  }
