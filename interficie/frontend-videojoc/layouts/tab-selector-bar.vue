@@ -1,40 +1,46 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div>
-    <div class="selector-bar">
-      <v-btn class="tab-selector-button">
-        <NuxtLink to="/main-menu">Main Menu</NuxtLink>
-      </v-btn>
-      <v-btn class="tab-selector-button">
-        <NuxtLink to="/gestio-assets">Assets</NuxtLink>
-      </v-btn>
-      <v-btn class="tab-selector-button">
-        <NuxtLink to="/gestio-odoo">Odoo</NuxtLink>
-      </v-btn>
-      <v-btn class="tab-selector-button">
-        <NuxtLink to="/broadcast">Broadcast</NuxtLink>
-      </v-btn>
-      <v-btn class="tab-selector-button">
-        <NuxtLink to="/serveis-i-processos">Serveis i Processos</NuxtLink>
-      </v-btn>
-      <v-btn class="tab-selector-button">
-        <NuxtLink to="/configuracions-de-joc">Settings</NuxtLink>
-      </v-btn>
+  <section>
+    <div>
+      <div class="selector-bar">
+        <v-btn class="tab-selector-button">
+          <NuxtLink to="/main-menu">Main Menu</NuxtLink>
+        </v-btn>
+        <v-btn class="tab-selector-button">
+          <NuxtLink to="/serveis-i-processos">Serveis i Processos</NuxtLink>
+        </v-btn>
+        <v-btn class="tab-selector-button">
+          <NuxtLink to="/broadcast">Broadcast</NuxtLink>
+        </v-btn>
+        <v-btn class="tab-selector-button">
+          <NuxtLink to="/gestio-assets">Assets</NuxtLink>
+        </v-btn>
+        <v-btn class="tab-selector-button">
+          <NuxtLink to="/gestio-odoo">Odoo</NuxtLink>
+        </v-btn>
+        <v-btn class="tab-selector-button">
+          <NuxtLink to="/configuracions-de-joc">Settings</NuxtLink>
+        </v-btn>
+      </div>
+      <slot />
     </div>
-    <slot />
-  </div>
+  </section>
 </template>
 
 <style>
-.tab-selector-button{
+.tab-selector-button {
   border-radius: 15px;
   border: 2px solid black;
+  background-color: aqua;
   padding: 10px;
 }
 
 .selector-bar {
-  padding: 30px;
+  display: flex;
+  justify-content: space-between;
+  padding: 50px;
 }
+
 
 </style>
