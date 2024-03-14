@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('../../assets/dining-hall-bard-background.jpg');
+  background-image: url('../../assets/broadcast-background.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
