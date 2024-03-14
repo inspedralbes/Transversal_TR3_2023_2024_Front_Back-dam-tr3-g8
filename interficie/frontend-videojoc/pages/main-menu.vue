@@ -1,10 +1,20 @@
-<script lang="ts" setup></script>
-
+<script setup lang="ts"></script>
 <template>
-  <div>
+  <div class="background">
     Page: main-menu
     Welcome bruh
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../../assets/main-menu-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+</style>

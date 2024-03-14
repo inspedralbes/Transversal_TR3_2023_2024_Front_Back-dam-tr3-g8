@@ -2,8 +2,10 @@
 
 <template>
   <div>
-    <NuxtLink to="/login">Login</NuxtLink>
+    <NuxtLink to="/main-menu">Main Menu</NuxtLink>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+
+</style>
