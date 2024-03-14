@@ -1,9 +1,20 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div>
+  <div class="background">
     Page: broadcast
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../../assets/dining-hall-bard-background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+</style>

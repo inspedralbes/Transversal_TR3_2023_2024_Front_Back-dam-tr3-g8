@@ -12,7 +12,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('../../assets/main-menu-background.jpg');
+  background-image: url('../../assets/main-menu-background.avif');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

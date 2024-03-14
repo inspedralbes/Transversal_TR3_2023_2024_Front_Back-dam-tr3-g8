@@ -1,11 +1,21 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div>
+  <div class="background">
     <NuxtLink to="/main-menu">Main Menu</NuxtLink>
   </div>
 </template>
 
 <style scoped>
-
+.background {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../../assets/index-background.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
 </style>

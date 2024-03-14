@@ -32,15 +32,18 @@
 .tab-selector-button {
   border-radius: 15px;
   border: 2px solid black;
-  background-color: aqua;
+  background-color: lightgrey;
+  opacity: 0.75;
   padding: 10px;
+  
 }
 
 .selector-bar {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 50px;
+  position: fixed;
+  z-index: 100; 
 }
-
 
 </style>
