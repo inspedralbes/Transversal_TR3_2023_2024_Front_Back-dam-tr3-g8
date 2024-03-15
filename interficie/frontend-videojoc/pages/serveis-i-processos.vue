@@ -3,9 +3,8 @@
 <template>
   <div class="background">
     <div class="service-selector">
-      YEEHAW
+      YEEHAW S&P
     </div>
-    Page: serveis-i-processos
   </div>
 </template>
 
@@ -15,7 +14,7 @@
   justify-content: space-evenly;
   align-items: center;
   height: 100vh;
-  background-image: url('../../assets/serveis-background.png');
+  background-image: url('../../assets-nuxt/serveis-background.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -30,4 +29,5 @@
   justify-content: center;
   align-items: center;
 }
+
 </style>

@@ -10,10 +10,10 @@
 .background {
   margin: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   height: 100vh;
-  background-image: url('../../assets/index-background.png');
+  background-image: url('../../assets-nuxt/index-background.png');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
