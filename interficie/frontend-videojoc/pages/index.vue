@@ -10,7 +10,7 @@
 .background {
   margin: 0;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   height: 100vh;
   background-image: url('../../assets-nuxt/index-background.png');

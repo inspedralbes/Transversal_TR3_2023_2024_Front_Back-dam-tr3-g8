@@ -1,8 +1,9 @@
 <script setup lang="ts"></script>
 <template>
   <div class="background">
-    Page: main-menu
-    Welcome bruh
+    <p class="page">
+      YEEHAW MAIN MENU
+    </p>
   </div>
 </template>
 
@@ -16,5 +17,9 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.page{
+  color: white;
 }
 </style>

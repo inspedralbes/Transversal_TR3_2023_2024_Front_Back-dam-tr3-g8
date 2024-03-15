@@ -3,9 +3,8 @@
 <template>
   <div class="background">
     <div class="service-selector">
-      YEEHAW
+      YEEHAW S&P
     </div>
-    Page: serveis-i-processos
   </div>
 </template>
 
@@ -30,4 +29,5 @@
   justify-content: center;
   align-items: center;
 }
+
 </style>

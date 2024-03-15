@@ -44,6 +44,7 @@
   padding: 50px;
   position: fixed;
   z-index: 100; 
+  max-width: 1000px;
 }
 
 </style>
