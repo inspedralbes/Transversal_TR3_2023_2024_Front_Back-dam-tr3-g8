@@ -11,7 +11,7 @@ const dbName = "Projecte_videojoc";
 
 export async function obtenirStatsEnemics(){
   return new Promise((resolve, reject) => {
-    enemic
+    enemics
       .find()
       .toArray()
       .then((results) => {
@@ -24,6 +24,17 @@ export async function obtenirStatsEnemics(){
   });
 }
 
-export async function actualitzarStatsEnemic(enemic){
-
+export async function actualitzarStatsEnemic(nouEnemic){
+  return new Promise((resolve, reject) => {
+    enemicID = parseInt(enemic.id);
+    enemics
+      .updateOne({ id: enemicID }, { $set: nouEnemic })
+      .then((result) => {
+        resolve();
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
 }

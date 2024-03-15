@@ -25,5 +25,16 @@ export async function obtenirStatsProta(){
 }
 
 export async function actualitzarStatsProta(nouProta){
-
+  return new Promise((resolve, reject) => {
+    protaID = parseInt(nouProta.id);
+    protagonista
+      .updateOne({ id: protaID }, { $set: nouProta })
+      .then((result) => {
+        resolve();
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
 }
