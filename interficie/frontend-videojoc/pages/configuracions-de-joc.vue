@@ -4,6 +4,16 @@
   <div class="background">
     <div class="settings-selector">
       YEEHAW SETTINGS
+      <div>
+        <p><b>
+            PLAYER SETTINGS
+          </b></p>
+      </div>
+      <div>
+        <p><b>
+            NPC SETTINGS
+          </b></p>
+      </div>
     </div>
   </div>
 </template>
@@ -26,12 +36,6 @@
   background-color: lightgrey;
   opacity: 0.75;
   padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.page{
-  color: white;
+  
 }
 </style>
