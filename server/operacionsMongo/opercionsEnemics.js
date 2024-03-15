@@ -1,5 +1,5 @@
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const uri ="mongodb+srv://tr3:password@tr3g8.i9mpnd9.mongodb.net";
+const uri ="mongodb+srv://usuari:ccF6ByhTUnmLc12K@tr3g8.i9mpnd9.mongodb.net/";
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -11,7 +11,7 @@ const dbName = "Projecte_videojoc";
 
 export async function obtenirStatsEnemics(){
   return new Promise((resolve, reject) => {
-    enemics
+    enemic
       .find()
       .toArray()
       .then((results) => {
@@ -27,7 +27,7 @@ export async function obtenirStatsEnemics(){
 export async function actualitzarStatsEnemic(nouEnemic){
   return new Promise((resolve, reject) => {
     enemicID = parseInt(enemic.id);
-    enemics
+    enemic
       .updateOne({ id: enemicID }, { $set: nouEnemic })
       .then((result) => {
         resolve();
