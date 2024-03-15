@@ -40,7 +40,15 @@ app.post("/actualitzarAsset", async (req, res) => {
   await operacionsAssets.editarAsset(asset)
 })//reb un asset desde interficie i actualitza el registre a mongo
 
+app.post("/actualitzarProtagonista", async (req, res) => {
+  novesStats = req.body.stats
+  await operacionsProta.actualitzarStatsProta(novesStats)
+})
 
+app.post("/actualitzarEnemic", async (req, res) => {
+  novesStats = req.body.stats
+  await operacionsEnemic.actualitzarStatsEnemic(novesStats)
+})
 
 //---------------------Crides android------------------//
 
@@ -63,16 +71,28 @@ app.post("/loginUser", async (req, res) => {
 })//permet autoritzar el login del usuari
 
 app.post("/registerUser", async (req, res) => {
-  usuari=req.body.user
+  usuari = req.body.user
   contrasenya = encriptar(req.body.passwd)
-  email=req.body.correu
+  email = req.body.correu
 
 })//crea un registre del usuari a la bbdd 
 
-app.get("/veureTenda", async(req,res)=>{
-  productes=await operacionsAssets.obtenirTenda()
+app.get("/veureTenda", async (req, res) => {
+  productes = await operacionsAssets.obtenirTenda()
   res.json(productes)
 })//agafa els productes en venta i els envia al solicitant
+
+//---------------------Crides multiplataforma------------------//
+
+app.get("/statsProta", async (req, res) => {
+  stats=await operacionsProta.obtenirStatsProta()
+  res.json(stats)
+})
+
+app.get("/statsEnemics", async (req, res) => {
+  stats=await operacionsEnemic.obtenirStatsEnemics()
+  res.json(stats)
+})
 
 //---------------------Procesos odoo------------------//
 
