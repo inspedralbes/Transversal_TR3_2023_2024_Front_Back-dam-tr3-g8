@@ -8,3 +8,22 @@ const client = new MongoClient(uri, {
   }
 });
 const dbName = "Projecte_videojoc";
+
+export async function obtenirStatsProta(){
+  return new Promise((resolve, reject) => {
+    protagonista
+      .find()
+      .toArray()
+      .then((results) => {
+        resolve(results);
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+}
+
+export async function actualitzarStatsProta(nouProta){
+
+}
