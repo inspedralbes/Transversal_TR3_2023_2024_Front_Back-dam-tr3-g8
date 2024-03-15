@@ -27,7 +27,7 @@ export async function updatePuntuacio(puntuacio, usuari) {
   return new Promise((resolve, reject) => {
     usuaris
       .findOne({ id: usuari }).then(async (result) => {
-        if (result.PuntuacioMAX <= puntuaico) {
+        if (result.PuntuacioMAX <= puntuacio) {
           await usuaris.updateOne(
             { id: usuari },
             {

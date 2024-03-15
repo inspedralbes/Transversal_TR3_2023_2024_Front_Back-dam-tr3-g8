@@ -11,7 +11,7 @@ const dbName = "Projecte_videojoc";
 
 export async function obtenirStatsProta(){
   return new Promise((resolve, reject) => {
-    protagonista
+    jugador
       .find()
       .toArray()
       .then((results) => {
@@ -27,7 +27,7 @@ export async function obtenirStatsProta(){
 export async function actualitzarStatsProta(nouProta){
   return new Promise((resolve, reject) => {
     protaID = parseInt(nouProta.id);
-    protagonista
+    jugador
       .updateOne({ id: protaID }, { $set: nouProta })
       .then((result) => {
         resolve();

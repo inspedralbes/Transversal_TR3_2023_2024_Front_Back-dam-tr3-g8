@@ -11,7 +11,7 @@ const dbName = "Projecte_videojoc";
 
 export async function obtenirStatsEnemics(){
   return new Promise((resolve, reject) => {
-    enemics
+    enemic
       .find()
       .toArray()
       .then((results) => {
@@ -27,7 +27,7 @@ export async function obtenirStatsEnemics(){
 export async function actualitzarStatsEnemic(nouEnemic){
   return new Promise((resolve, reject) => {
     enemicID = parseInt(enemic.id);
-    enemics
+    enemic
       .updateOne({ id: enemicID }, { $set: nouEnemic })
       .then((result) => {
         resolve();

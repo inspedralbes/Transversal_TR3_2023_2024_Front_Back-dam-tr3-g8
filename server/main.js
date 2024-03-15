@@ -25,7 +25,7 @@ const operacionsEnemic = require("./operacionsMongo/opercionsEnemics");
 const operacionsOdoo = require("./operacionsOdoo/operacionsOdoo")
 
 
-const PORT = process.env.PORT || 3817;
+const PORT = 3817;
 
 //---------------------Crides interficie------------------//
 
@@ -43,12 +43,12 @@ app.post("/actualitzarAsset", async (req, res) => {
 app.post("/actualitzarProtagonista", async (req, res) => {
   novesStats = req.body.stats
   await operacionsProta.actualitzarStatsProta(novesStats)
-})
+})//reb un objecte protagonista i actualitza el de la bbdd
 
 app.post("/actualitzarEnemic", async (req, res) => {
   novesStats = req.body.stats
   await operacionsEnemic.actualitzarStatsEnemic(novesStats)
-})
+})//reb un objecte enemic i actualitza el de la bbdd per id
 
 //---------------------Crides android------------------//
 
@@ -85,14 +85,14 @@ app.get("/veureTenda", async (req, res) => {
 //---------------------Crides multiplataforma------------------//
 
 app.get("/statsProta", async (req, res) => {
-  stats=await operacionsProta.obtenirStatsProta()
+  stats = await operacionsProta.obtenirStatsProta()
   res.json(stats)
-})
+})//retorna tots els protagonista
 
 app.get("/statsEnemics", async (req, res) => {
-  stats=await operacionsEnemic.obtenirStatsEnemics()
+  stats = await operacionsEnemic.obtenirStatsEnemics()
   res.json(stats)
-})
+})//retorna tots els enemics
 
 //---------------------Procesos odoo------------------//
 
