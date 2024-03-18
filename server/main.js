@@ -1,14 +1,14 @@
 const express = require("express");
-const http = require("http");
+//const http = require("http");
 const cors = require("cors");
 const app = express();
-const server = http.createServer(app);
-const { Server } = require("socket.io");
-const path = require('path');
+//const server = http.createServer(app);
+//const { Server } = require("socket.io");
+//const path = require('path');
 const crypto = require('crypto');
 
 app.use(express.json({ strict: false }))
-app.use(bodyParser.json());
+//app.use(bodyParser.json());
 app.use(cors(
   {
     "origin": "*",
