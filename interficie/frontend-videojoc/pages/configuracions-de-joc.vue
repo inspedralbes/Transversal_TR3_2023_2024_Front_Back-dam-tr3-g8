@@ -1,23 +1,35 @@
 <script>
+import { getProta } from '~/CommunicationsManager';
+import { getEnemics } from '~/CommunicationsManager';
 export default{
   data(){
     return{
       gameDifficulty: "",
-      playerName: "Paul.png",
-      playerHitPoints: 50,
-      playerShieldPoints: 10,
-      playerMovementSpeed:5,
-      playerAttackSpeed:0,
-      playerAttackRange: 0,
-      playerAttackDamage:25,
-      npcSpriteName: "John.png",
-      npcBaseDiffHitPoints: 50,
-      npcMovementSpeed:0,
-      npcAttackDamage:25
+      protagonista:{
+        playerName: "Paul.png",
+        playerHitPoints: 50,
+        playerShieldPoints: 10,
+        playerMovementSpeed:5,
+        playerAttackSpeed:0,
+        playerAttackRange: 0,
+        playerAttackDamage:25,
+      },
+      npc:{
+        npcSpriteName: "John.png",
+        npcBaseDiffHitPoints: 50,
+        npcMovementSpeed:0,
+        npcAttackDamage:25
+      },
     };
   }, 
   methods:{
-    
+      getProtagInfo(){
+        getProta();
+        console.log("info collected")
+      }
+  },
+  created(){
+    this.getProtagInfo();
   }
 }
 </script>
@@ -43,20 +55,20 @@ export default{
           <p><b>PLAYER SETTINGS</b></p>
         </div>
         <div>
-          <p>Player Name: {{ playerName }}</p>
-          <input v-model="playerName" type="text">
-          <p>Max Hit Points: {{ playerHitPoints }}</p>
-          <input v-model="playerHitPoints" class="player-hit-points" type="range" min="0" max="100" step="10">
-          <p>Max Shield Points: {{ playerShieldPoints }}</p>
-          <input v-model="playerShieldPoints" class="player-shield-points" type="range" min="0" max="100" step="10">
-          <p>Movement Speed: {{ playerMovementSpeed }}</p>
-          <input v-model="playerMovementSpeed" type="number" min="5" max="25" step="5">
-          <p>Attack Speed: {{playerAttackSpeed}}</p>
+          <p>Player Name: {{ protagonista.playerName }}</p>
+          <input v-model="protagonista.playerName" type="text">
+          <p>Max Hit Points: {{ protagonista.playerHitPoints }}</p>
+          <input v-model="protagonista.playerHitPoints" class="player-hit-points" type="range" min="0" max="100" step="10">
+          <p>Max Shield Points: {{ protagonista.playerShieldPoints }}</p>
+          <input v-model="protagonista.playerShieldPoints" class="player-shield-points" type="range" min="0" max="100" step="10">
+          <p>Movement Speed: {{ protagonista.playerMovementSpeed }}</p>
+          <input v-model="protagonista.playerMovementSpeed" type="number" min="5" max="25" step="5">
+          <p>Attack Speed: {{protagonista.playerAttackSpeed}}</p>
           <input v-model="playerAttackSpeed" type="number" min="5" max="50" step="5">
-          <p>Attack Range: {{ playerAttackRange }}</p>
-          <input v-model="playerAttackRange" class="player-attack-range" type="range" min="0" max="100" step="10">
-          <p>Attack Damage: {{ playerAttackDamage }}</p>
-          <input v-model="playerAttackDamage" type="number" min="0" step="10">
+          <p>Attack Range: {{ protagonista.playerAttackRange }}</p>
+          <input v-model="protagonista.playerAttackRange" class="player-attack-range" type="range" min="0" max="100" step="10">
+          <p>Attack Damage: {{ protagonista.playerAttackDamage }}</p>
+          <input v-model="protagonista.playerAttackDamage" type="number" min="0" step="10">
         </div>
       </div>
     </div>
@@ -69,13 +81,13 @@ export default{
           NPC SPRITE GRID
         </div>
         <div class="npc-indiv-settings">
-          <p>Npc Sprite Name: {{ npcSpriteName }}</p>
-          <p>Max Hit Points: {{ npcBaseDiffHitPoints }}</p>
-          <input v-model="npcBaseDiffHitPoints" class="player-hit-points" type="range" min="0" max="100" step="10">
-          <p>Movement Speed: {{ npcMovementSpeed }}</p>
+          <p>Npc Sprite Name: {{ npc.npcSpriteName }}</p>
+          <p>Max Hit Points: {{ npc.npcBaseDiffHitPoints }}</p>
+          <input v-model="npc.npcBaseDiffHitPoints" class="player-hit-points" type="range" min="0" max="100" step="10">
+          <p>Movement Speed: {{ npc.npcMovementSpeed }}</p>
           <input v-model="npcMovementSpeed" type="number" min="5" max="25" step="5">
-          <p>Attack Damage: {{ npcAttackDamage }}</p>
-          <input v-model="npcAttackDamage" type="number" min="0" step="10">
+          <p>Attack Damage: {{ npc.npcAttackDamage }}</p>
+          <input v-model="npc.npcAttackDamage" type="number" min="0" step="10">
         </div>
       </div>
     </div>
