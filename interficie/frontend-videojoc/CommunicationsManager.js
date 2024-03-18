@@ -11,14 +11,14 @@ export async function getTenda(){
 
 export async function getProta(){
     const response = await fetch(localURL + '/statsProta');
-    const productes = await response.json();
-    return productes
+    const protagonistaInf = await response.json();
+    return protagonistaInf
 }//recupera tots els protagonistas
 
 export async function getEnemics(){
     const response = await fetch(localURL + '/statsEnemics');
-    const productes = await response.json();
-    return productes
+    const enemicInf = await response.json();
+    return enemicInf
 }//recupera tots els enemics
 
 
