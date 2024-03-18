@@ -1,5 +1,22 @@
-<script lang="ts" setup>
-
+<script>
+export default{
+  data(){
+    return{
+      stageDifficulty: "",
+      playerName: "",
+      playerHitPoints: 50,
+      playerShieldPoints: 10,
+      playerMovementSpeed:0,
+      playerAttackSpeed:0,
+      playerAttackRange: 0,
+      playerAttackDamage:25,
+      npcSpriteName: "",
+      npcBaseDiffHitPoints: 50,
+      npcMovementSpeed:0,
+      npcAttackDamage:25
+    };
+  }
+}
 </script>
 
 <template>
@@ -11,21 +28,28 @@
           <p><b>PLAYER SETTINGS</b></p>
         </div>
         <div>
-          <p>Player Name</p>
-          <p>Max Hit Points(slider)</p>
-          <input class="player-hit-points" type="range" min="0" max="250" step="25"> 
-          <p>Max Shield Points(slider)</p>
-          <input class="player-shield-points" type="range" min="0" max="250" step="25">
-          <p>Movement Speed(counter)</p>
-          <p>Attack Speed(counter)</p>
-          <p>Attack Range(slider)</p>
-          <input class="player-attack-range" type="range" step="10">
-          <p>Attack Damage(counter)</p>
+          <p>Player Name: {{ playerName }}</p>
+          <input v-model="playerName" type="text">
+          <p>Max Hit Points: {{ playerHitPoints }}</p>
+          <input v-model="playerHitPoints" class="player-hit-points" type="range" min="0" max="100" step="10">
+          <p>Max Shield Points: {{ playerShieldPoints }}</p>
+          <input v-model="playerShieldPoints" class="player-shield-points" type="range" min="0" max="100" step="10">
+          <p>Movement Speed: {{ playerMovementSpeed }}</p>
+          <input v-model="playerMovementSpeed" type="number" min="5" max="50" step="5">
+          <p>Attack Speed: {{playerAttackSpeed}}</p>
+          <input v-model="playerAttackSpeed" type="number" min="5" max="50" step="5">
+          <p>Attack Range: {{ playerAttackRange }}</p>
+          <input v-model="playerAttackRange" class="player-attack-range" type="range" min="0" max="100" step="10">
+          <p>Attack Damage: {{ playerAttackDamage }}</p>
+          <input v-model="playerAttackDamage" type="number" min="5" max="50" step="5">
         </div>
       </div>
     </div>
     <div class="main-settings-tab">
       YEEHAW SETTINGS TAB 2
+      <div>
+        {{ stageDifficulty }}
+      </div>
       <div class="npc-settings-tab">
         <div>
           <p><b>NPC SETTINGS</b></p>
@@ -34,11 +58,13 @@
           NPC SPRITE GRID
         </div>
         <div class="npc-indiv-settings">
-          <p>Npc name</p>
-          <p>Max Hit Points(slider)</p>
-          <input class="player-hit-points" type="range">
-          <p>Movement Speed(counter)</p>
-          <p>Attack Damage(counter)</p>
+          <p>Npc Sprite Name</p>
+          <p>Max Hit Points: {{ npcBaseDiffHitPoints }}</p>
+          <input v-model="npcBaseDiffHitPoints" class="player-hit-points" type="range" min="0" max="250" step="25">
+          <p>Movement Speed: {{ npcMovementSpeed }}</p>
+          <input v-model="npcMovementSpeed" type="number">
+          <p>Attack Damage: {{ npcAttackDamage }}</p>
+          <input v-model="npcAttackDamage" type="number">
         </div>
       </div>
     </div>
@@ -61,7 +87,7 @@
   border-radius: 15px;
   border: 2px solid black;
   background-color: lightgrey;
-  opacity: 0.75;
+  opacity: 0.9;
   padding: 10px;
   width: 700PX;
 }
