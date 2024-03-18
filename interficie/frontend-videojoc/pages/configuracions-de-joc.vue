@@ -13,13 +13,13 @@
         <div>
           <p>Player Name</p>
           <p>Max Hit Points(slider)</p>
-          <input class="player-hit-points" type="range">
+          <input class="player-hit-points" type="range" min="0" max="250" step="25"> 
           <p>Max Shield Points(slider)</p>
-          <input class="player-shield-points" type="range">
+          <input class="player-shield-points" type="range" min="0" max="250" step="25">
           <p>Movement Speed(counter)</p>
           <p>Attack Speed(counter)</p>
           <p>Attack Range(slider)</p>
-          <input class="player-hit-points" type="range">
+          <input class="player-attack-range" type="range" step="10">
           <p>Attack Damage(counter)</p>
         </div>
       </div>
