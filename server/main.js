@@ -52,7 +52,6 @@ app.post("/actualitzarAsset", async (req, res) => {
 app.post("/actualitzarProtagonista", async (req, res) => {
   novesStats = req.body
   await operacionsProta.actualitzarStatsProta(novesStats)
-  console.log("done")
 })//reb un objecte protagonista i actualitza el de la bbdd
 
 app.post("/actualitzarEnemic", async (req, res) => {
