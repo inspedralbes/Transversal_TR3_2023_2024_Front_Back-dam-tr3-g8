@@ -9,10 +9,26 @@ const client = new MongoClient(uri, {
 });
 const dbName = "Projecte_videojoc";
 
+let taulaAssets;
 
+async function connexioAssets() {
+  return new Promise((resolve, reject) => {
+    client
+      .connect()
+      .then(() => {
+        let database = client.db(dbName);
+        taulaAssets = database.collection("assets");
+        resolve();
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+}
  async function obtenirAssets() {
   return new Promise((resolve, reject) => {
-    assets
+    taulaAssets
       .find()
       .toArray()
       .then((results) => {
@@ -28,7 +44,7 @@ const dbName = "Projecte_videojoc";
  async function editarAsset(assetAModificar) {
   return new Promise((resolve, reject) => {
     assetID = parseInt(assetAModificar.id);
-    assets
+    taulaAssets
       .updateOne({ id: assetID }, { $set: assetAModificar })
       .then((result) => {
         resolve();
@@ -42,7 +58,7 @@ const dbName = "Projecte_videojoc";
 
  async function obtenirTenda() {
   return new Promise((resolve, reject) => {
-    assets
+    taulaAssets
       .aggregate([{ $match: { Disponible: true } }]).toArray()
       .then((result) => {
         resolve(result);
@@ -57,5 +73,6 @@ const dbName = "Projecte_videojoc";
 module.exports={
   obtenirAssets,
   editarAsset,
-  obtenirTenda
+  obtenirTenda,
+  connexioAssets
 }

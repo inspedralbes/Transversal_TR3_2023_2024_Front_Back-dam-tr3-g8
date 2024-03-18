@@ -9,9 +9,27 @@ const client = new MongoClient(uri, {
 });
 const dbName = "Projecte_videojoc";
 
-export async function obtenirStatsEnemics(){
+let taulaEnemic;
+
+async function connexioEnemics() {
   return new Promise((resolve, reject) => {
-    enemic
+    client
+      .connect()
+      .then(() => {
+        let database = client.db(dbName);
+        taulaEnemic = database.collection("enemic");
+        resolve();
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+}
+
+ async function obtenirStatsEnemics(){
+  return new Promise((resolve, reject) => {
+    taulaEnemic
       .find()
       .toArray()
       .then((results) => {
@@ -24,10 +42,10 @@ export async function obtenirStatsEnemics(){
   });
 }
 
-export async function actualitzarStatsEnemic(nouEnemic){
+ async function actualitzarStatsEnemic(nouEnemic){
   return new Promise((resolve, reject) => {
     enemicID = parseInt(enemic.id);
-    enemic
+    taulaEnemic
       .updateOne({ id: enemicID }, { $set: nouEnemic })
       .then((result) => {
         resolve();
@@ -41,5 +59,6 @@ export async function actualitzarStatsEnemic(nouEnemic){
 
 module.exports={
   obtenirStatsEnemics,
-  actualitzarStatsEnemic
+  actualitzarStatsEnemic,
+  connexioEnemics
 }

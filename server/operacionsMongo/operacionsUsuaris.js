@@ -8,10 +8,27 @@ const client = new MongoClient(uri, {
   }
 });
 const dbName = "Projecte_videojoc";
+let taulaUsuari;
+
+async function connexioUsuari() {
+  return new Promise((resolve, reject) => {
+    client
+      .connect()
+      .then(() => {
+        let database = client.db(dbName);
+        taulaUsuari = database.collection("usuaris");
+        resolve();
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+}
 
  async function logejarUser(username, passwd) {
   return new Promise((resolve, reject) => {
-    usuaris
+    taulaUsuari
       .findOne({ username: username }, { contrasenya: passwd })
       .then((result) => {
         resolve(result);
@@ -25,10 +42,10 @@ const dbName = "Projecte_videojoc";
 
  async function updatePuntuacio(puntuacio, usuari) {
   return new Promise((resolve, reject) => {
-    usuaris
+    taulaUsuari
       .findOne({ id: usuari }).then(async (result) => {
         if (result.PuntuacioMAX <= puntuacio) {
-          await usuaris.updateOne(
+          await taulaUsuari.updateOne(
             { id: usuari },
             {
               $set: {
@@ -41,7 +58,7 @@ const dbName = "Projecte_videojoc";
           resolve()
         }
         else if (result.puntuacioMaxSemanal <= puntuacio) {
-          await usuaris.updateOne(
+          await taulaUsuari.updateOne(
             { id: usuari },
             {
               $set: {
@@ -53,7 +70,7 @@ const dbName = "Projecte_videojoc";
           resolve()
         }
         else if (result.puntuacioMaxDia <= puntuacio) {
-          await usuaris.updateOne(
+          await taulaUsuari.updateOne(
             { id: usuari },
             {
               $set: {
@@ -92,5 +109,6 @@ const dbName = "Projecte_videojoc";
 module.exports={
   logejarUser,
   updatePuntuacio,
-  crearUsuari
+  crearUsuari,
+  connexioUsuari
 }

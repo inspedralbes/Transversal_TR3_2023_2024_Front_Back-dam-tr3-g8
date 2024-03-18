@@ -8,10 +8,28 @@ const client = new MongoClient(uri, {
   }
 });
 const dbName = "Projecte_videojoc";
+let taulaJugador;
 
-export async function obtenirStatsProta(){
+async function connexioJugador() {
   return new Promise((resolve, reject) => {
-    jugador
+    client
+      .connect()
+      .then(() => {
+        let database = client.db(dbName);
+        taulaJugador = database.collection("jugador");
+        resolve();
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+}
+
+
+ async function obtenirStatsProta(){
+  return new Promise((resolve, reject) => {
+    taulaJugador
       .find()
       .toArray()
       .then((results) => {
@@ -24,12 +42,23 @@ export async function obtenirStatsProta(){
   });
 }
 
-export async function actualitzarStatsProta(nouProta){
-  return new Promise((resolve, reject) => {
-    protaID = parseInt(nouProta.id);
-    jugador
-      .updateOne({ id: protaID }, { $set: nouProta })
+ async function actualitzarStatsProta(nouProta){
+  return new Promise(async (resolve, reject) => {
+    console.log(nouProta)
+    // {"nom":nouProta.nom, "vida":nouProta.vida,"MS":nouProta.MS, "AS":nouProta.AS,"AD":nouProta.AD }
+    await taulaJugador
+     .updateOne(
+      { 
+        id: nouProta.id,       
+      },
+      {
+        $set: {
+          AS: nouProta.AS
+        }  
+      }
+    )
       .then((result) => {
+        console.log(result)
         resolve();
       })
       .catch((err) => {
@@ -42,5 +71,6 @@ export async function actualitzarStatsProta(nouProta){
 
 module.exports={
   obtenirStatsProta,
-  actualitzarStatsProta
+  actualitzarStatsProta,
+  connexioJugador
 }
