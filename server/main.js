@@ -101,11 +101,16 @@ app.get("/veureTenda", async (req, res) => {
 app.get("/statsProta", async (req, res) => {
   stats = await operacionsProta.obtenirStatsProta()
   res.json(stats)
+  console.log("info prota collected:");
+  console.log(stats);
 })//retorna tots els protagonista
 
 app.get("/statsEnemics", async (req, res) => {
   stats = await operacionsEnemic.obtenirStatsEnemics()
   res.json(stats)
+  console.log("info enemics collected:")
+  console.log(stats)
+
 })//retorna tots els enemics
 
 //---------------------Procesos odoo------------------//
