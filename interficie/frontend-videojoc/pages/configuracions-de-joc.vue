@@ -1,4 +1,6 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+
+</script>
 
 <template>
   <div class="background">
@@ -56,11 +58,10 @@
   width: 700PX;
 }
 
-.npc-indiv-settings{
+.npc-indiv-settings {
   border-radius: 10px;
   border: 2px solid black;
   padding: 10px;
   width: 200px;
 }
-
 </style>
