@@ -22,10 +22,19 @@ const operacionsAssets = require("./operacionsMongo/operacionsAssets");
 const operacionsUser = require("./operacionsMongo/operacionsUsuaris");
 const operacionsProta = require("./operacionsMongo/operacionsProtagonista");
 const operacionsEnemic = require("./operacionsMongo/opercionsEnemics");
-const operacionsOdoo = require("./operacionsOdoo/operacionsOdoo")
-
+const operacionsOdoo = require("./operacionsOdoo/operacionsOdoo");
 
 const PORT = 3817;
+app.listen(PORT, async () => {
+  await operacionsAssets.connexioAssets();
+  await operacionsEnemic.connexioEnemics();
+  await operacionsProta.connexioJugador();
+  await operacionsUser.connexioUsuari();
+  console.log(`Server is running on http://localhost:${PORT}`);
+  
+});
+
+
 
 //---------------------Crides interficie------------------//
 
@@ -41,8 +50,9 @@ app.post("/actualitzarAsset", async (req, res) => {
 })//reb un asset desde interficie i actualitza el registre a mongo
 
 app.post("/actualitzarProtagonista", async (req, res) => {
-  novesStats = req.body.stats
+  novesStats = req.body
   await operacionsProta.actualitzarStatsProta(novesStats)
+  console.log("done")
 })//reb un objecte protagonista i actualitza el de la bbdd
 
 app.post("/actualitzarEnemic", async (req, res) => {
