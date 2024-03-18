@@ -38,3 +38,9 @@ export async function actualitzarStatsProta(nouProta){
       });
   });
 }
+
+
+module.exports={
+  obtenirStatsProta,
+  actualitzarStatsProta
+}

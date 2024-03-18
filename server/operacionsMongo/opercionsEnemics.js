@@ -38,3 +38,8 @@ export async function actualitzarStatsEnemic(nouEnemic){
       });
   });
 }
+
+module.exports={
+  obtenirStatsEnemics,
+  actualitzarStatsEnemic
+}

@@ -10,7 +10,7 @@ const client = new MongoClient(uri, {
 const dbName = "Projecte_videojoc";
 
 
-export async function obtenirAssets() {
+ async function obtenirAssets() {
   return new Promise((resolve, reject) => {
     assets
       .find()
@@ -25,7 +25,7 @@ export async function obtenirAssets() {
   });
 }//envia tots els assets de la bbdd
 
-export async function editarAsset(assetAModificar) {
+ async function editarAsset(assetAModificar) {
   return new Promise((resolve, reject) => {
     assetID = parseInt(assetAModificar.id);
     assets
@@ -40,7 +40,7 @@ export async function editarAsset(assetAModificar) {
   });
 }//sobrescriu el asset indicat amb les dades noves
 
-export async function obtenirTenda() {
+ async function obtenirTenda() {
   return new Promise((resolve, reject) => {
     assets
       .aggregate([{ $match: { Disponible: true } }]).toArray()
@@ -54,3 +54,8 @@ export async function obtenirTenda() {
   });
 }//envia tots els assets que estiguin marcats com disponibles
 
+module.exports={
+  obtenirAssets,
+  editarAsset,
+  obtenirTenda
+}

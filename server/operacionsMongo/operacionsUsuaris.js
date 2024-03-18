@@ -9,7 +9,7 @@ const client = new MongoClient(uri, {
 });
 const dbName = "Projecte_videojoc";
 
-export async function logejarUser(username, passwd) {
+ async function logejarUser(username, passwd) {
   return new Promise((resolve, reject) => {
     usuaris
       .findOne({ username: username }, { contrasenya: passwd })
@@ -23,7 +23,7 @@ export async function logejarUser(username, passwd) {
   });
 }//busca si existeix un usuari amb el usuarname i contrasenya proporcionat 
 
-export async function updatePuntuacio(puntuacio, usuari) {
+ async function updatePuntuacio(puntuacio, usuari) {
   return new Promise((resolve, reject) => {
     usuaris
       .findOne({ id: usuari }).then(async (result) => {
@@ -74,7 +74,7 @@ export async function updatePuntuacio(puntuacio, usuari) {
   })
 }//compara la nova puntuacio amb les registrades i els actualitza si son superiors
 
-export async function crearUsuari(usuari, contrasenya, email){
+ async function crearUsuari(usuari, contrasenya, email){
   let novaID="";
   let nouUsuari={
     username:usuari,
@@ -87,4 +87,10 @@ export async function crearUsuari(usuari, contrasenya, email){
     monedas:0,
     id:novaID
   }
+}
+
+module.exports={
+  logejarUser,
+  updatePuntuacio,
+  crearUsuari
 }
