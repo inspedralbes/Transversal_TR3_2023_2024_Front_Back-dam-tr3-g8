@@ -52,9 +52,13 @@ async function connexioJugador() {
         id: nouProta.id,       
       },
       {
-        $set: {
-          AS: nouProta.AS
-        }  
+        $set:  {
+          "nom": nouProta.nom,
+          "vida": nouProta.vida,
+          "MS": nouProta.MS,
+          "AS": nouProta.AS,
+          "AD": nouProta.AD
+        }
       }
     )
       .then((result) => {

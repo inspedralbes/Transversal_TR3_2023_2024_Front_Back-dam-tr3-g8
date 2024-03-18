@@ -43,9 +43,19 @@ async function connexioAssets() {
 
  async function editarAsset(assetAModificar) {
   return new Promise((resolve, reject) => {
-    assetID = parseInt(assetAModificar.id);
     taulaAssets
-      .updateOne({ id: assetID }, { $set: assetAModificar })
+    .updateOne(
+      { 
+        id: assetAModificar.id,       
+      },
+      {
+        $set:  {
+          "nom": assetAModificar.nom,
+          "tipus": assetAModificar.tipus,
+          "Disponible": assetAModificar.Disponible
+        }
+      }
+    )
       .then((result) => {
         resolve();
       })

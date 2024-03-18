@@ -44,9 +44,21 @@ async function connexioEnemics() {
 
  async function actualitzarStatsEnemic(nouEnemic){
   return new Promise((resolve, reject) => {
-    enemicID = parseInt(enemic.id);
     taulaEnemic
-      .updateOne({ id: enemicID }, { $set: nouEnemic })
+    .updateOne(
+      { 
+        id: nouEnemic.id,       
+      },
+      {
+        $set:  {
+          "nom": nouProta.nom,
+          "vida": nouProta.vida,
+          "MS": nouProta.MS,
+          "AS": nouProta.AS,
+          "AD": nouProta.AD
+        }
+      }
+    )
       .then((result) => {
         resolve();
       })
