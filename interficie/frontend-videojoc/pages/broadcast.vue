@@ -4,24 +4,14 @@
   <div class="background">
     <div class="broadcast-message-box">
       YEEHAW MESSAGE
-      <button class="broadcast-message-button">
-        YA ALLAH
-      </button>
+      <input class="broadcast-message-button" type="submit" value="HEAR YE HEAR YE">
       <div>
-        <p>
-          <b>
-            Message Title:
-          </b>
-        </p>
+        <p><b>Message Title:</b></p>
         <input class="message-title-area" type="text">
       </div>
       <div>
-        <p>
-          <b>
-            Message Text:
-          </b>
-        </p>
-        <textarea class="message-text-area" name="text" id="messageText" cols="65" rows="13"></textarea>
+        <p><b>Message Text:</b></p>
+        <textarea class="message-text-area" name="text" id="messageText" cols="77" rows="20"></textarea>
       </div>
     </div>
   </div>
@@ -45,8 +35,8 @@
   background-color: lightgrey;
   opacity: 0.75;
   padding: 15px;
-  height: 450px;
-  width: 600px;
+  height: 470px;
+  width: 590px;
 
 }
 
@@ -56,16 +46,16 @@
   padding: 3px;
   background-color: white;
   opacity: 0.75;
-  margin-left: 380px;
+  margin-left: 460px;
 }
 
-.message-title-area{
-  width: 595px;
+.message-title-area {
+  width: 580px;
   height: 25px;
 }
 
-.message-text-area{
-  max-width: 595px;
+.message-text-area {
+  max-width: 580px;
   max-height: 290px;
 }
 
