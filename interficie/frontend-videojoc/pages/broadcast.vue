@@ -4,7 +4,7 @@
   <div class="background">
     <div class="broadcast-message-box">
       YEEHAW MESSAGE
-      <input class="broadcast-message-button" type="submit" value="HEAR YE HEAR YE">
+      <input class="broadcast-message-button" type="button" value="HEAR YE HEAR YE">
       <div>
         <p><b>Message Title:</b></p>
         <input class="message-title-area" type="text">
