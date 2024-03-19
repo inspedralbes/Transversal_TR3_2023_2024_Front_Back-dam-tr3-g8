@@ -32,7 +32,7 @@ async function crearBroadcast(missatge) {
     taulaBroadcast
       .insertOne(missatge)
       .then((result) => {
-        resolve();
+        resolve(result);
       })
       .catch((err) => {
         console.error(err);
@@ -47,7 +47,7 @@ async function enviarBroadcast() {
       .find()
       .toArray()
       .then((result) => {
-        resolve();
+        resolve(result);
       })
       .catch((err) => {
         console.error(err);

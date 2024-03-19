@@ -104,6 +104,7 @@ app.get("/veureTenda", async (req, res) => {
 })//agafa els productes en venta i els envia al solicitant
 
 app.get("/veureBroadcasts", async(req,res)=>{
+  let missatges=[{}]
   missatges= await operacionsBroadcast.enviarBroadcast()
   missatges= missatges.sort((a,b)=>{
     if(a.data>b.data){
