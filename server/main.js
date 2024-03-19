@@ -61,7 +61,6 @@ app.post("/actualitzarEnemic", async (req, res) => {
   await operacionsEnemic.actualitzarStatsEnemic(novesStats)
 })//reb un objecte enemic i actualitza el de la bbdd per id
 
-
 app.post("/broadcast", async (req, res) => {
   missatge = {
     enunciat: req.body.titol,
@@ -69,7 +68,7 @@ app.post("/broadcast", async (req, res) => {
   }
   await operacionsBroadcast.crearBroadcast(missatge)
 
-})
+})//reb un missatge i l'enmagatzema a la base de dades per poder recollir desde android
 
 //---------------------Crides android------------------//
 
