@@ -17,7 +17,7 @@ app.use(cors(
     "optionsSuccessStatus": 204
   }
 ))
-
+const spritesheetOriginal="../assetsNode/spritesheet.png";
 const operacionsAssets = require("./operacionsMongo/operacionsAssets");
 const operacionsUser = require("./operacionsMongo/operacionsUsuaris");
 const operacionsProta = require("./operacionsMongo/operacionsProtagonista");
@@ -74,9 +74,10 @@ app.post("/broadcast", async (req, res) => {
 
 
 app.post("/afegirImatge", async (req, res) => {
-  imatges.joinImages([imatgeOriginal, imatge2], "vertical").then((img) => {
+  nouSprite=decode(req.body)
+  imatges.joinImages([spritesheetOriginal, nouSprite], "vertical").then((img) => {
     // Save image as file
-    img.toFile(imatgeOriginal);
+    img.toFile(spritesheetOriginal);
   });
 })
 
