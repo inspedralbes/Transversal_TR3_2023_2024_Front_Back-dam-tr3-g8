@@ -23,6 +23,7 @@ const operacionsUser = require("./operacionsMongo/operacionsUsuaris");
 const operacionsProta = require("./operacionsMongo/operacionsProtagonista");
 const operacionsEnemic = require("./operacionsMongo/opercionsEnemics");
 const operacionsOdoo = require("./operacionsOdoo/operacionsOdoo");
+const operacionsBroadcast = require("./operacionsMongo/operacionsBroadcast");
 
 const PORT = 3817;
 app.listen(PORT, async () => {
@@ -30,8 +31,9 @@ app.listen(PORT, async () => {
   await operacionsEnemic.connexioEnemics();
   await operacionsProta.connexioJugador();
   await operacionsUser.connexioUsuari();
+  await operacionsBroadcast.connexioBroadcast();
   console.log(`Server is running on http://localhost:${PORT}`);
-  
+
 });
 
 
@@ -62,8 +64,13 @@ app.post("/actualitzarEnemic", async (req, res) => {
 })//reb un objecte enemic i actualitza el de la bbdd per id
 
 
-app.post("/broadcast", async(req, res)=>{
-  
+app.post("/broadcast", async (req, res) => {
+  missatge = {
+    enunciat: req.body.titol,
+    text: req.body.cos
+  }
+  await operacionsBroadcast.crearBroadcast(missatge)
+
 })
 
 //---------------------Crides android------------------//

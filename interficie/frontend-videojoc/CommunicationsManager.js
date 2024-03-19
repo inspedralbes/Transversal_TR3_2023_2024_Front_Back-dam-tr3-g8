@@ -65,9 +65,8 @@ export async function postAssetUpdate(asset){
     );
 }//enviar objecte asset per actualitzar la bbdd
 
-//No funciona encara
 export async function postEnviarBroadcast(missatge){
-    //capçalera;missatge
+    //missatge{titol;cos}
     const response = await fetch(localURL + '/broadcast',
         {
             method: 'POST',
