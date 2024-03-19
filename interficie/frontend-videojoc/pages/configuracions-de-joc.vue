@@ -1,35 +1,40 @@
 <script>
 import { getProta } from '~/CommunicationsManager';
 import { getEnemics } from '~/CommunicationsManager';
-export default{
-  data(){
-    return{
+export default {
+  data() {
+    return {
       gameDifficulty: "",
-      protagonista:{
+      infoProta: [],
+      infoEnemics: [],
+      protagonista: {
         playerName: "Paul.png",
         playerHitPoints: 50,
         playerShieldPoints: 10,
-        playerMovementSpeed:5,
-        playerAttackSpeed:0,
+        playerMovementSpeed: 5,
+        playerAttackSpeed: 0,
         playerAttackRange: 0,
-        playerAttackDamage:25,
+        playerAttackDamage: 25,
       },
-      npc:{
+      npc: {
         npcSpriteName: "John.png",
         npcBaseDiffHitPoints: 50,
-        npcMovementSpeed:0,
-        npcAttackDamage:25
+        npcMovementSpeed: 0,
+        npcAttackDamage: 25
       },
     };
-  }, 
-  methods:{
-      getProtagInfo(){
-        getProta();
-        console.log("info collected")
-      }
   },
-  created(){
+  methods: {
+    async getProtagInfo() {
+      this.infoProta = await getProta();
+    },
+    async getNpcInfo() {
+      this.infoEnemics = await getEnemics();
+    }
+  },
+  created() {
     this.getProtagInfo();
+    this.getNpcInfo();
   }
 }
 </script>
@@ -39,13 +44,13 @@ export default{
     <div class="difficulty-settings-tab">
       <div>
         <p>
-          Difficulty Level: {{ gameDifficulty }}
+          Difficulty Level: {{ gameDifficulty.toUpperCase() }}
         </p>
-        <input v-model="gameDifficulty" id="easy-diff" type="radio" value="EASY">
+        <input v-model="gameDifficulty" id="easy-diff" type="radio" value="easy">
         <label for="easy-diff">EASY</label>
-        <input v-model="gameDifficulty" id="mid-diff" type="radio" value="MEDIUM">
+        <input v-model="gameDifficulty" id="mid-diff" type="radio" value="medium">
         <label for="mid-diff">MEDIUM</label>
-        <input v-model="gameDifficulty" id="hard-diff" type="radio" value="HARD">
+        <input v-model="gameDifficulty" id="hard-diff" type="radio" value="hard">
         <label for="hard-diff">HARD</label>
       </div>
     </div>
@@ -54,21 +59,23 @@ export default{
         <div>
           <p><b>PLAYER SETTINGS</b></p>
         </div>
-        <div>
-          <p>Player Name: {{ protagonista.playerName }}</p>
-          <input v-model="protagonista.playerName" type="text">
-          <p>Max Hit Points: {{ protagonista.playerHitPoints }}</p>
-          <input v-model="protagonista.playerHitPoints" class="player-hit-points" type="range" min="0" max="100" step="10">
+        <div v-for="prota in infoProta">
+          <p>Player Name: {{ prota.nom }}</p>
+          <input v-model="prota.nom" type="text">
+          <p>Max Hit Points: {{ prota.vida }}</p>
+          <input v-model="prota.vida" class="player-hit-points" type="range" min="0" max="100" step="10">
           <p>Max Shield Points: {{ protagonista.playerShieldPoints }}</p>
-          <input v-model="protagonista.playerShieldPoints" class="player-shield-points" type="range" min="0" max="100" step="10">
-          <p>Movement Speed: {{ protagonista.playerMovementSpeed }}</p>
-          <input v-model="protagonista.playerMovementSpeed" type="number" min="5" max="25" step="5">
-          <p>Attack Speed: {{protagonista.playerAttackSpeed}}</p>
-          <input v-model="playerAttackSpeed" type="number" min="5" max="50" step="5">
+          <input v-model="protagonista.playerShieldPoints" class="player-shield-points" type="range" min="0" max="100"
+            step="10">
+          <p>Movement Speed: {{ prota.MS }}</p>
+          <input v-model="prota.MS" type="number" min="5" max="25" step="5">
+          <p>Attack Speed: {{ prota.AS }}</p>
+          <input v-model="prota.AS" type="number" min="5" max="50" step="5">
           <p>Attack Range: {{ protagonista.playerAttackRange }}</p>
-          <input v-model="protagonista.playerAttackRange" class="player-attack-range" type="range" min="0" max="100" step="10">
-          <p>Attack Damage: {{ protagonista.playerAttackDamage }}</p>
-          <input v-model="protagonista.playerAttackDamage" type="number" min="0" step="10">
+          <input v-model="protagonista.playerAttackRange" class="player-attack-range" type="range" min="0" max="100"
+            step="10">
+          <p>Attack Damage: {{ prota.AD }}</p>
+          <input v-model="prota.AD" type="number" min="0" step="10">
         </div>
       </div>
     </div>
@@ -80,14 +87,14 @@ export default{
         <div class="npc-sprite-grid">
           NPC SPRITE GRID
         </div>
-        <div class="npc-indiv-settings">
-          <p>Npc Sprite Name: {{ npc.npcSpriteName }}</p>
-          <p>Max Hit Points: {{ npc.npcBaseDiffHitPoints }}</p>
-          <input v-model="npc.npcBaseDiffHitPoints" class="player-hit-points" type="range" min="0" max="100" step="10">
-          <p>Movement Speed: {{ npc.npcMovementSpeed }}</p>
-          <input v-model="npcMovementSpeed" type="number" min="5" max="25" step="5">
-          <p>Attack Damage: {{ npc.npcAttackDamage }}</p>
-          <input v-model="npc.npcAttackDamage" type="number" min="0" step="10">
+        <div class="npc-indiv-settings" v-for="enemic in infoEnemics">
+          <p>Npc Sprite Name: {{ enemic.nom }}</p>
+          <p>Max Hit Points: {{ enemic.vida }}</p>
+          <input v-model="enemic.vida" class="player-hit-points" type="range" min="0" max="100" step="10">
+          <p>Movement Speed: {{ enemic.MS }}</p>
+          <input v-model="enemic.MS" type="number" min="5" max="25" step="5">
+          <p>Attack Damage: {{ enemic.AD }}</p>
+          <input v-model="enemic.AD" type="number" min="0" step="10">
         </div>
       </div>
     </div>
@@ -106,7 +113,7 @@ export default{
   background-position: center;
 }
 
-.difficulty-settings-tab{
+.difficulty-settings-tab {
   border-radius: 15px;
   border: 2px solid black;
   background-color: lightgrey;
