@@ -2,6 +2,7 @@
 import { getProta } from '~/CommunicationsManager';
 import { getEnemics } from '~/CommunicationsManager';
 import { postProtagonistaUpdate } from '~/CommunicationsManager';
+import { postEnemicUpdate } from '~/CommunicationsManager';
 export default {
   data() {
     return {
@@ -17,7 +18,8 @@ export default {
         AD: 0,
       },
       npc: {
-        nom: "John.png",
+        id: 0,
+        nom: "",
         vida: 50,
         MS: 0,
         AD: 25
@@ -41,7 +43,14 @@ export default {
     async getNpcInfo() {
       this.infoEnemics = await getEnemics();
     },
-    
+    async updateNpcInfo(id, nom, vida, MS, AD){
+      this.npc.id = id;
+      this.npc.nom = nom;
+      this.npc.vida = vida;
+      this.npc.MS = MS,
+      this.npc.AD = AD;
+      await postEnemicUpdate(this.npc);
+    }
   },
   created() {
     this.getProtagInfo();
@@ -112,6 +121,9 @@ export default {
           <input v-model="enemic.MS" type="number" min="5" max="25" step="5">
           <p>Attack Damage: {{ enemic.AD }}</p>
           <input v-model="enemic.AD" type="number" min="0" step="10">
+          <div>
+            <button class="update-prota-info-button" @click="updateProtaInfo(1, enemic.nom, enemic.vida, enemic.MS, enemic.AD)">Update Player Info</button>
+          </div>
         </div>
       </div>
     </div>
