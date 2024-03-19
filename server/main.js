@@ -64,10 +64,11 @@ app.post("/actualitzarEnemic", async (req, res) => {
 })//reb un objecte enemic i actualitza el de la bbdd per id
 
 app.post("/broadcast", async (req, res) => {
+  console.log(req.body)
   missatge = {
     enunciat: req.body.titol,
     text: req.body.cos,
-    data: new Date()
+    fecha: new Date()
   }
   await operacionsBroadcast.crearBroadcast(missatge)
 
