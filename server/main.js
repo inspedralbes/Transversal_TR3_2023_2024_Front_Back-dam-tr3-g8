@@ -6,7 +6,7 @@ const app = express();
 //const { Server } = require("socket.io");
 //const path = require('path');
 const crypto = require('crypto');
-
+const imatges = require('join-images')
 app.use(express.json({ strict: false }))
 //app.use(bodyParser.json());
 app.use(cors(
@@ -72,6 +72,15 @@ app.post("/broadcast", async (req, res) => {
 
 })//reb un missatge i l'enmagatzema a la base de dades per poder recollir desde android
 
+
+app.post("/afegirImatge", async (req, res) => {
+  imatges.joinImages([imatgeOriginal, imatge2], "vertical").then((img) => {
+    // Save image as file
+    img.toFile(imatgeOriginal);
+  });
+})
+
+
 //---------------------Crides android------------------//
 
 app.post("/loginUser", async (req, res) => {
@@ -104,11 +113,11 @@ app.get("/veureTenda", async (req, res) => {
   res.json(productes)
 })//agafa els productes en venta i els envia al solicitant
 
-app.get("/veureBroadcasts", async(req,res)=>{
-  let missatges=[{}]
-  missatges= await operacionsBroadcast.enviarBroadcast()
-  missatges= missatges.sort((a,b)=>{
-    if(a.fecha>b.fecha){
+app.get("/veureBroadcasts", async (req, res) => {
+  let missatges = [{}]
+  missatges = await operacionsBroadcast.enviarBroadcast()
+  missatges = missatges.sort((a, b) => {
+    if (a.fecha > b.fecha) {
       return -1
     }
   });
