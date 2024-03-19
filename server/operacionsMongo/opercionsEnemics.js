@@ -52,11 +52,11 @@ async function connexioEnemics() {
       },
       {
         $set:  {
-          nom: nouProta.nom,
-          vida: nouProta.vida,
-          MS: nouProta.MS,
-          AS: nouProta.AS,
-          AD: nouProta.AD
+          nom: nouEnemic.nom,
+          vida: nouEnemic.vida,
+          MS: nouEnemic.MS,
+          AS: nouEnemic.AS,
+          AD: nouEnemic.AD
         }
       }
     )
