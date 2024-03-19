@@ -66,7 +66,8 @@ app.post("/actualitzarEnemic", async (req, res) => {
 app.post("/broadcast", async (req, res) => {
   missatge = {
     enunciat: req.body.titol,
-    text: req.body.cos
+    text: req.body.cos,
+    data: new Date()
   }
   await operacionsBroadcast.crearBroadcast(missatge)
 
@@ -104,6 +105,15 @@ app.get("/veureTenda", async (req, res) => {
   res.json(productes)
 })//agafa els productes en venta i els envia al solicitant
 
+app.get("/veureBroadcasts", async(req,res)=>{
+  missatges= await operacionsBroadcast.enviarBroadcast()
+  missatges= missatges.sort((a,b)=>{
+    if(a.data>b.data){
+      return -1
+    }
+  });
+  res.json(missatges)
+})
 //---------------------Crides multiplataforma------------------//
 
 app.get("/statsProta", async (req, res) => {
