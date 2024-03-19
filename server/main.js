@@ -52,9 +52,7 @@ app.post("/actualitzarAsset", async (req, res) => {
 })//reb un asset desde interficie i actualitza el registre a mongo
 
 app.post("/actualitzarProtagonista", async (req, res) => {
-  console.log("info prota updated")
   novesStats = req.body
-  console.log("noves stats: ", req.body)
   await operacionsProta.actualitzarStatsProta(novesStats)
 })//reb un objecte protagonista i actualitza el de la bbdd
 
@@ -121,16 +119,11 @@ app.get("/veureBroadcasts", async(req,res)=>{
 app.get("/statsProta", async (req, res) => {
   stats = await operacionsProta.obtenirStatsProta()
   res.json(stats)
-  console.log("info prota collected:");
-  console.log(stats);
 })//retorna tots els protagonista
 
 app.get("/statsEnemics", async (req, res) => {
   stats = await operacionsEnemic.obtenirStatsEnemics()
   res.json(stats)
-  console.log("info enemics collected:")
-  console.log(stats)
-
 })//retorna tots els enemics
 
 //---------------------Procesos odoo------------------//
