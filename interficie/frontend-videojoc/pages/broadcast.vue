@@ -1,17 +1,36 @@
-<script lang="ts" setup></script>
+<script lang="ts">
+import { postEnviarBroadcast } from '~/CommunicationsManager';
+export default{
+  data(){
+    return{
+      missatge:{
+        titol: "",
+        cos: ""
+      }
+    }
+  },
+  methods: {
+    async broadcastMissatge(titol: string, cos: string){
+      this.missatge.titol = titol;
+      this.missatge.cos = cos;
+      await postEnviarBroadcast(this.missatge);
+    }
+  }
+}
+</script>
 
 <template>
   <div class="background">
     <div class="broadcast-message-box">
       YEEHAW MESSAGE
-      <input class="broadcast-message-button" type="button" value="HEAR YE HEAR YE">
+      <button class="broadcast-message-button" @click="broadcastMissatge(missatge.titol, missatge.cos)"> HEAR YE HEAR YE</button>
       <div>
         <p><b>Message Title:</b></p>
-        <input class="message-title-area" type="text">
+        <input v-model="missatge.titol" name="title" id="messageTitle" class="message-title-area" type="text">
       </div>
       <div>
         <p><b>Message Text:</b></p>
-        <textarea class="message-text-area" name="text" id="messageText" cols="77" rows="20"></textarea>
+        <textarea v-model="missatge.cos" class="message-text-area" name="text" id="messageText" cols="77" rows="20"></textarea>
       </div>
     </div>
   </div>
@@ -37,16 +56,17 @@
   padding: 15px;
   height: 470px;
   width: 590px;
-
+  font-family:'Courier New', Courier, monospace;
 }
 
 .broadcast-message-button {
-  border: 1px solid black;
-  border-radius: 5px;
   padding: 3px;
   background-color: white;
   opacity: 0.75;
   margin-left: 460px;
+  height: 25px;
+  border-radius: 10px;
+  font-family:'Courier New', Courier, monospace;
 }
 
 .message-title-area {
@@ -59,4 +79,4 @@
   max-height: 290px;
 }
 
-</style>
+</style>: string: string

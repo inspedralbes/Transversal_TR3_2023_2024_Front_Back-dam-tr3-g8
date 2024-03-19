@@ -82,7 +82,7 @@ export default {
           <p>Attack Damage: {{ prota.AD }}</p>
           <input name="AD" id="protaAD" v-model="prota.AD" type="number" min="0" step="10">
           <div>
-            <button class="update-prota-info-button" @click="updateProtaInfo(1, prota.nom, prota.vida, prota.MS, prota.AS, prota.AD)">Update Info</button>
+            <button class="update-prota-info-button" @click="updateProtaInfo(1, prota.nom, prota.vida, prota.MS, prota.AS, prota.AD)">Update Player Info</button>
           </div>
         </div>
       </div>
