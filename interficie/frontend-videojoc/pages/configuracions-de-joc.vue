@@ -1,6 +1,7 @@
 <script>
 import { getProta } from '~/CommunicationsManager';
 import { getEnemics } from '~/CommunicationsManager';
+import { postProtagonistaUpdate } from '~/CommunicationsManager';
 export default {
   data() {
     return {
@@ -8,19 +9,18 @@ export default {
       infoProta: [],
       infoEnemics: [],
       protagonista: {
-        playerName: "Paul.png",
-        playerHitPoints: 50,
-        playerShieldPoints: 10,
-        playerMovementSpeed: 5,
-        playerAttackSpeed: 0,
-        playerAttackRange: 0,
-        playerAttackDamage: 25,
+        id: 0,
+        nom: "",
+        vida: 0,
+        MS: 0,
+        AS: 0,
+        AD: 0,
       },
       npc: {
-        npcSpriteName: "John.png",
-        npcBaseDiffHitPoints: 50,
-        npcMovementSpeed: 0,
-        npcAttackDamage: 25
+        nom: "John.png",
+        vida: 50,
+        MS: 0,
+        AD: 25
       },
     };
   },
@@ -28,9 +28,20 @@ export default {
     async getProtagInfo() {
       this.infoProta = await getProta();
     },
+    async updateProtaInfo(id, nom, vida, MS, AS, AD){
+      console.log(nom)
+      this.protagonista.id = id;
+      this.protagonista.nom = nom;
+      this.protagonista.vida = vida;
+      this.protagonista.MS = MS;
+      this.protagonista.AS = AS;
+      this.protagonista.AD = AD;
+      await postProtagonistaUpdate(this.protagonista);
+    },
     async getNpcInfo() {
       this.infoEnemics = await getEnemics();
-    }
+    },
+    
   },
   created() {
     this.getProtagInfo();
@@ -61,21 +72,18 @@ export default {
         </div>
         <div v-for="prota in infoProta">
           <p>Player Name: {{ prota.nom }}</p>
-          <input v-model="prota.nom" type="text">
+          <input name="nom" id="protaNom" v-model="prota.nom" type="text">
           <p>Max Hit Points: {{ prota.vida }}</p>
-          <input v-model="prota.vida" class="player-hit-points" type="range" min="0" max="100" step="10">
-          <p>Max Shield Points: {{ protagonista.playerShieldPoints }}</p>
-          <input v-model="protagonista.playerShieldPoints" class="player-shield-points" type="range" min="0" max="100"
-            step="10">
+          <input name="vida" id="protaVida" v-model="prota.vida" class="player-hit-points" type="range" min="0" max="100" step="10">
           <p>Movement Speed: {{ prota.MS }}</p>
-          <input v-model="prota.MS" type="number" min="5" max="25" step="5">
+          <input name="MS" id="protaMS" v-model="prota.MS" type="number" min="5" max="25" step="5">
           <p>Attack Speed: {{ prota.AS }}</p>
-          <input v-model="prota.AS" type="number" min="5" max="50" step="5">
-          <p>Attack Range: {{ protagonista.playerAttackRange }}</p>
-          <input v-model="protagonista.playerAttackRange" class="player-attack-range" type="range" min="0" max="100"
-            step="10">
+          <input name="AS" id="protaAS" v-model="prota.AS" type="number" min="5" max="50" step="5">
           <p>Attack Damage: {{ prota.AD }}</p>
-          <input v-model="prota.AD" type="number" min="0" step="10">
+          <input name="AD" id="protaAD" v-model="prota.AD" type="number" min="0" step="10">
+        </div>
+        <div>
+          <button class="update-prota-info-button" @click="updateProtaInfo(1, protaNom, protaVida, protaMS, protaAS, protaAD)">Update Info</button>
         </div>
       </div>
     </div>
@@ -86,6 +94,15 @@ export default {
         </div>
         <div class="npc-sprite-grid">
           NPC SPRITE GRID
+          <table>
+            <tr>
+              <td>
+                <div>
+
+                </div>
+              </td>
+            </tr>
+          </table>
         </div>
         <div class="npc-indiv-settings" v-for="enemic in infoEnemics">
           <p>Npc Sprite Name: {{ enemic.nom }}</p>
@@ -121,6 +138,8 @@ export default {
   padding: 10px;
   width: 250px;
   margin-bottom: 470px;
+  font-family:'Courier New', Courier, monospace;
+
 }
 
 .main-settings-tab {
@@ -130,6 +149,7 @@ export default {
   opacity: 0.9;
   padding: 10px;
   width: 700PX;
+  font-family:'Courier New', Courier, monospace;
 }
 
 .npc-indiv-settings {
@@ -137,5 +157,12 @@ export default {
   border: 2px solid black;
   padding: 10px;
   width: 200px;
+}
+
+.update-prota-info-button{
+  margin-top: 30px;
+  height: 25px;
+  border-radius: 10px;
+  font-family:'Courier New', Courier, monospace;
 }
 </style>

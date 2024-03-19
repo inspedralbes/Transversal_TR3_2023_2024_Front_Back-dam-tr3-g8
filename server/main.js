@@ -50,7 +50,9 @@ app.post("/actualitzarAsset", async (req, res) => {
 })//reb un asset desde interficie i actualitza el registre a mongo
 
 app.post("/actualitzarProtagonista", async (req, res) => {
+  console.log("info prota updated")
   novesStats = req.body
+  console.log("noves stats: ", req.body)
   await operacionsProta.actualitzarStatsProta(novesStats)
 })//reb un objecte protagonista i actualitza el de la bbdd
 
