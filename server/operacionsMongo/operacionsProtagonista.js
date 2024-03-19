@@ -54,11 +54,11 @@ async function connexioJugador() {
       },
       {
         $set:  {
-          "nom": nouProta.nom,
-          "vida": nouProta.vida,
-          "MS": nouProta.MS,
-          "AS": nouProta.AS,
-          "AD": nouProta.AD
+          nom: nouProta.nom,
+          vida: nouProta.vida,
+          MS: nouProta.MS,
+          AS: nouProta.AS,
+          AD: nouProta.AD
         }
       }
     )

@@ -24,7 +24,7 @@ export async function getEnemics(){
 
 
 export async function postProtagonistaUpdate(protagonista){
-
+    console.log("nou prota: ", protagonista)
     const response = await fetch(localURL + '/actualitzarProtagonista',
         {
             method: 'POST',
