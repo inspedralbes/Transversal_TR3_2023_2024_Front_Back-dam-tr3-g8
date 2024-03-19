@@ -57,7 +57,7 @@ app.post("/actualitzarProtagonista", async (req, res) => {
 })//reb un objecte protagonista i actualitza el de la bbdd
 
 app.post("/actualitzarEnemic", async (req, res) => {
-  novesStats = req.body.stats
+  novesStats = req.body
   await operacionsEnemic.actualitzarStatsEnemic(novesStats)
 })//reb un objecte enemic i actualitza el de la bbdd per id
 
@@ -108,12 +108,14 @@ app.get("/veureBroadcasts", async(req,res)=>{
   let missatges=[{}]
   missatges= await operacionsBroadcast.enviarBroadcast()
   missatges= missatges.sort((a,b)=>{
-    if(a.data>b.data){
+    if(a.fecha>b.fecha){
       return -1
     }
   });
   res.json(missatges)
-})
+})//reenvia tots els broadcasts de la base de dades a android
+
+
 //---------------------Crides multiplataforma------------------//
 
 app.get("/statsProta", async (req, res) => {
