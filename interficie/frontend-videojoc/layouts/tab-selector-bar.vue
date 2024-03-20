@@ -1,7 +1,9 @@
 <script lang="ts">
 export default{
   data(){
-
+    return{
+      route: ""
+    }
   }
 } 
 </script>
@@ -41,7 +43,7 @@ export default{
   background-color: lightgrey;
   opacity: 0.75;
   padding: 10px;
-  
+  margin-left: 50px;
 }
 
 .selector-bar {
