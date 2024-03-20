@@ -7,6 +7,7 @@ const app = express();
 //const path = require('path');
 const crypto = require('crypto');
 const imatges = require('join-images')
+const jwt = require("jsonwebtoken");
 app.use(express.json({ strict: false }))
 //app.use(bodyParser.json());
 app.use(cors(
@@ -17,7 +18,7 @@ app.use(cors(
     "optionsSuccessStatus": 204
   }
 ))
-const spritesheetOriginal="../assetsNode/spritesheet.png";
+const spritesheetOriginal = "../assetsNode/spritesheet.png";
 const operacionsAssets = require("./operacionsMongo/operacionsAssets");
 const operacionsUser = require("./operacionsMongo/operacionsUsuaris");
 const operacionsProta = require("./operacionsMongo/operacionsProtagonista");
@@ -74,7 +75,7 @@ app.post("/broadcast", async (req, res) => {
 
 
 app.post("/afegirImatge", async (req, res) => {
-  nouSprite=decode(req.body)
+  nouSprite = decode(req.body)
   imatges.joinImages([spritesheetOriginal, nouSprite], "vertical").then((img) => {
     // Save image as file
     img.toFile(spritesheetOriginal);
@@ -90,13 +91,24 @@ app.post("/loginUser", async (req, res) => {
   passwd = desencriptar(passwd)
   let validacio = operacionsUser.logejarUser(username, passwd);
   if (validacio != null) {
+    let token;
+    //Creating jwt token
+    token = jwt.sign(
+      {
+        userId: validacio.id,
+      },
+      "secretkeyappearshere",
+      { expiresIn: "4h" }
+    )
     resposta = {
-      permis: true
+      permis: true,
+      token: token
     }
   }
   else {
     resposta = {
-      permis: false
+      permis: false,
+      token: null
     }
   }
   res.json(resposta)
