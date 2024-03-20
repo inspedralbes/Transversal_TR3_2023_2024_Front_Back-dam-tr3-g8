@@ -79,3 +79,15 @@ export async function postEnviarBroadcast(missatge){
     );
 }//enviar objecte broadcast per informar a android
 
+export async function postCrearAsset(nouAsset){
+    const response = await fetch(localURL + '/inserirAsset',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(nouAsset),
+            mode: "cors"
+        }
+    );
+}

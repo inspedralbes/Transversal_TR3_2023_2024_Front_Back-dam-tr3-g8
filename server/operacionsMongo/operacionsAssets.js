@@ -67,6 +67,20 @@ async function connexioAssets() {
   });
 }//sobrescriu el asset indicat amb les dades noves
 
+async function crearAsset(assetNou) {
+  return new Promise((resolve, reject) => {
+    taulaAssets
+      .insertOne(assetNou)
+      .then((result) => {
+        resolve();
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+}
+
  async function obtenirTenda() {
   return new Promise((resolve, reject) => {
     taulaAssets
@@ -85,5 +99,6 @@ module.exports={
   obtenirAssets,
   editarAsset,
   obtenirTenda,
-  connexioAssets
+  connexioAssets,
+  crearAsset
 }

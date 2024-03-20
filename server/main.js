@@ -73,6 +73,10 @@ app.post("/broadcast", async (req, res) => {
 
 })//reb un missatge i l'enmagatzema a la base de dades per poder recollir desde android
 
+app.post("/inserirAsset", async(req,res)=>{
+  nouAsset=req.body
+  await operacionsAssets.crearAsset(nouAsset)
+})//reb un objecte asset i l'insereix directament a mongo
 
 app.post("/afegirImatge", async (req, res) => {
   nouSprite = decode(req.body)
