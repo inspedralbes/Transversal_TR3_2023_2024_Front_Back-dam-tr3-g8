@@ -103,15 +103,9 @@ export default {
         </div>
         <div class="npc-sprite-grid">
           NPC SPRITE GRID
-          <table>
-            <tr>
-              <td>
-                <div>
-
-                </div>
-              </td>
-            </tr>
-          </table>
+          <div>
+            
+          </div>
         </div>
         <div class="npc-indiv-settings" v-for="enemic in infoEnemics">
           <p>Npc Sprite Name: {{ enemic.nom }}</p>
