@@ -2,7 +2,7 @@
 
 <template>
   <div class="background">
-    <NuxtLink to="/main-menu">Main Menu</NuxtLink>
+    <NuxtLink to="/main-menu"><NuxtImg class="game-logo" src="/logo-videojoc.png"></NuxtImg></NuxtLink>
   </div>
 </template>
 
@@ -17,5 +17,11 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.game-logo{
+  height: 500px;
+  margin-right: 450px;
+  margin-top: 200px;
 }
 </style>
