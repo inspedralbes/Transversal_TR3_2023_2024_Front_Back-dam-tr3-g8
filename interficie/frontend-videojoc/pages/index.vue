@@ -21,7 +21,7 @@
 
 .game-logo{
   height: 500px;
-  margin-right: 450px;
+  margin-right: 475px;
   margin-top: 200px;
 }
 </style>
