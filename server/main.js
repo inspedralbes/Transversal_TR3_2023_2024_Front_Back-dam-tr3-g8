@@ -28,6 +28,7 @@ const operacionsOdoo = require("./operacionsOdoo/operacionsOdoo");
 const operacionsBroadcast = require("./operacionsMongo/operacionsBroadcast");
 
 const PORT = 3817;
+
 /*app.listen(PORT, async () => {
   await operacionsAssets.connexioAssets();
   await operacionsEnemic.connexioEnemics();
@@ -38,6 +39,7 @@ const PORT = 3817;
 });*/
 
 server.listen(PORT, async () => {
+  //iniciem les connexions a mongo per no alentir les operacions mes endavant
   await operacionsAssets.connexioAssets();
   await operacionsEnemic.connexioEnemics();
   await operacionsProta.connexioJugador();
@@ -150,23 +152,37 @@ app.get("/veureBroadcasts", async (req, res) => {
   res.json(missatges)
 })//reenvia tots els broadcasts de la base de dades a android
 
-io.on('connection', (socket, identificacio) => {
+app.post("/crearPartida", async(req,res)=>{
+  partida={
+    dificultat:req.body.dificultat,
+    codi:generarNouCodiSala()
+  }
+  
+})
+app.post("/unirseAPartida", async(req,res)=>{
+  codi=req.body
+})
+
+io.on('connection', (socket, identificacio, codiPartida) => {
   //Utilitzem "identificacio" com el token que obtenen els usuaris a fer login per identificar qui es qui per evitar que el 2n player faci els moviments del primer jugador
 
   socket.on('moviment', (direccio) => {
-    socket.broadcast.emit('movimentJugador', { direccio, identificacio });
-  });//enviar a android que l'altre jugador a començat a moures
+    socket.broadcast.emit('movimentJugador', { direccio, identificacio })
+  })//enviar a android que l'altre jugador a començat a moures
 
   socket.on('acabarMoviment', (direccio) => {
-    socket.broadcast.emit('acabarMovimentJugador', { direccio, identificacio });
-  });//enviar a android que l'altre jugador a acabat el moviment
+    socket.broadcast.emit('acabarMovimentJugador', { direccio, identificacio })
+  })//enviar a android que l'altre jugador a acabat el moviment
 
   socket.on('atacar', () => {
-    socket.broadcast.emit('jugadorAtaca', {identificacio});
-  });//enviar a android que l'altre jugador a atacat
+    socket.broadcast.emit('jugadorAtaca', {identificacio})
+  })//enviar a android que l'altre jugador a atacat
+  
+  socket.on('desconectar', () => {
+    tancarSala(codiPartida)
+  })//enviar a android que l'altre jugador a atacat
 
-
-});
+})//socket per permetre el multijugador a android, esta preparat per dos jugadors nomes
 
 //---------------------Crides multiplataforma------------------//
 
