@@ -1,9 +1,27 @@
-<script lang="ts" setup></script>
+<script lang="ts" >
+export default{
+  data(){
+    return{
+      assets: [],
+      asset: {
+        id: 0,
+        nom: "",
+        tipus: "",
+        xInicial: 0,
+        xFinal: 0,
+        yInicial: 0,
+        yFinal: 0,
+        disponible: false,
+      }
+    }
+  }
+}
+</script>
 
 <template>
   <div class="background">
     <div class="assets-list">
-      YEEHAW ASSETS
+      
     </div>
   </div>
 </template>
