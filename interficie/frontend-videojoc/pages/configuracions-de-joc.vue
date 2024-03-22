@@ -6,6 +6,7 @@ import { postEnemicUpdate } from '~/CommunicationsManager';
 export default {
   data() {
     return {
+      visible: false,
       gameDifficulty: "",
       infoProta: [],
       infoEnemics: [],
@@ -30,7 +31,7 @@ export default {
     async getProtagInfo() {
       this.infoProta = await getProta();
     },
-    async updateProtaInfo(id, nom, vida, MS, AS, AD){
+    async updateProtaInfo(id, nom, vida, MS, AS, AD) {
       console.log(nom)
       this.protagonista.id = id;
       this.protagonista.nom = nom;
@@ -43,12 +44,12 @@ export default {
     async getNpcInfo() {
       this.infoEnemics = await getEnemics();
     },
-    async updateNpcInfo(id, nom, vida, MS, AD){
+    async updateNpcInfo(id, nom, vida, MS, AD) {
       this.npc.id = id;
       this.npc.nom = nom;
       this.npc.vida = vida;
       this.npc.MS = MS,
-      this.npc.AD = AD;
+        this.npc.AD = AD;
       await postEnemicUpdate(this.npc);
     }
   },
@@ -83,7 +84,8 @@ export default {
           <p>Player Name: {{ prota.nom }}</p>
           <input name="nom" id="protaNom" v-model="prota.nom" type="text">
           <p>Max Hit Points: {{ prota.vida }}</p>
-          <input name="vida" id="protaVida" v-model="prota.vida" class="player-hit-points" type="range" min="0" max="100" step="10">
+          <input name="vida" id="protaVida" v-model="prota.vida" class="player-hit-points" type="range" min="0"
+            max="250" step="25">
           <p>Movement Speed: {{ prota.MS }}</p>
           <input name="MS" id="protaMS" v-model="prota.MS" type="number" min="5" max="25" step="5">
           <p>Attack Speed: {{ prota.AS }}</p>
@@ -91,7 +93,9 @@ export default {
           <p>Attack Damage: {{ prota.AD }}</p>
           <input name="AD" id="protaAD" v-model="prota.AD" type="number" min="0" step="10">
           <div>
-            <button class="update-prota-info-button" @click="updateProtaInfo(1, prota.nom, prota.vida, prota.MS, prota.AS, prota.AD)">Update Player Info</button>
+            <button class="update-prota-info-button"
+              @click="updateProtaInfo(1, prota.nom, prota.vida, prota.MS, prota.AS, prota.AD)">Update Player
+              Info</button>
           </div>
         </div>
       </div>
@@ -103,20 +107,29 @@ export default {
         </div>
         <div class="npc-sprite-grid">
           NPC SPRITE GRID
-          <div>
-            
-          </div>
-        </div>
-        <div class="npc-indiv-settings" v-for="enemic in infoEnemics">
-          <p>Npc Sprite Name: {{ enemic.nom }}</p>
-          <p>Max Hit Points: {{ enemic.vida }}</p>
-          <input v-model="enemic.vida" class="player-hit-points" type="range" min="0" max="100" step="10">
-          <p>Movement Speed: {{ enemic.MS }}</p>
-          <input v-model="enemic.MS" type="number" min="5" max="25" step="5">
-          <p>Attack Damage: {{ enemic.AD }}</p>
-          <input v-model="enemic.AD" type="number" min="0" step="10">
-          <div>
-            <button class="update-prota-info-button" @click="updateNpcInfo(1, enemic.nom, enemic.vida, enemic.MS, enemic.AD)">Update Npc Info</button>
+          <div class="indiv-npc-info" v-for="enemic in infoEnemics">
+            <div>
+              <p>{{ enemic.nom }}</p>
+              <button class="npc-more-info-button" @click="visible = true">
+                More Info
+              </button>
+            </div>
+            <div class="indiv-npc-settings" v-show="visible">
+              <p>Npc Name: {{ enemic.nom }}</p>
+              <p>Max Hit Points: {{ enemic.vida }}</p>
+              <input v-model="enemic.vida" class="player-hit-points" type="range" min="0" max="250" step="25">
+              <p>Movement Speed: {{ enemic.MS }}</p>
+              <input v-model="enemic.MS" type="number" min="5" max="25" step="5">
+              <p>Attack Damage: {{ enemic.AD }}</p>
+              <input v-model="enemic.AD" type="number" min="0" step="10">
+              <div>
+                <button class="update-prota-info-button"
+                  @click="updateNpcInfo(1, enemic.nom, enemic.vida, enemic.MS, enemic.AD)">Update Npc Info</button>
+              </div>
+              <div>
+                <button class="npc-info-button" @click="visible = false">Close</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -144,7 +157,7 @@ export default {
   padding: 10px;
   width: 250px;
   margin-bottom: 470px;
-  font-family:'Courier New', Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
 
 }
 
@@ -155,20 +168,38 @@ export default {
   opacity: 0.9;
   padding: 10px;
   width: 700PX;
-  font-family:'Courier New', Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
 }
 
-.npc-indiv-settings {
+.indiv-npc-settings {
   border-radius: 10px;
   border: 2px solid black;
   padding: 10px;
   width: 200px;
 }
 
-.update-prota-info-button{
-  margin-top: 30px;
+.indiv-npc-info {
+  display: flex;
+  justify-content: space-between  ;
+}
+
+.update-prota-info-button {
+  margin-top: 15px;
   height: 25px;
   border-radius: 10px;
-  font-family:'Courier New', Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.npc-info-button {
+  margin-top: 15px;
+  height: 25px;
+  border-radius: 10px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.npc-more-info-button{
+  height: 25px;
+  border-radius: 10px;
+  font-family: 'Courier New', Courier, monospace;
 }
 </style>

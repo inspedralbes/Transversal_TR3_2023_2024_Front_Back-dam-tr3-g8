@@ -21,7 +21,12 @@ export default{
 <template>
   <div class="background">
     <div class="assets-list">
-      
+      SPRITE GRID
+      <div class="indiv-sprite-settings">
+        <p>Sprite Name: {{ asset.nom }}</p>
+        <p>Sprite Type: {{ asset.tipus }}</p>
+        <p>Sprite Type: {{ asset.disponible }}</p>
+      </div>
     </div>
   </div>
 </template>
