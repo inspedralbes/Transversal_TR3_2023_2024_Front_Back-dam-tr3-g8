@@ -46,7 +46,7 @@ server.listen(PORT, async () => {
   await operacionsProta.connexioJugador();
   await operacionsUser.connexioUsuari();
   await operacionsBroadcast.connexioBroadcast();
-  //await operacionsPartida.buscarPartida();
+  await operacionsPartida.buscarPartida();
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 
@@ -198,7 +198,6 @@ app.get("/statsProta", async (req, res) => {
 
 app.get("/statsEnemics", async (req, res) => {
   stats = await operacionsEnemic.obtenirStatsEnemics()
-  console.log(stats)
   res.json(stats)
 })//retorna tots els enemics
 
