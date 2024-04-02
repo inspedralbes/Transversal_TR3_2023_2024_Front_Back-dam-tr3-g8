@@ -17,7 +17,7 @@ async function connexioPartida() {
             .connect()
             .then(() => {
                 let database = client.db(dbName);
-                taulaBroadcast = database.collection("partida");
+                taulaPartida = database.collection("partida");
                 resolve();
             })
             .catch((err) => {
@@ -61,7 +61,7 @@ async function unirseAPartida(codiBuscat,identificacio) {
         taulaPartida
             .findOne({ codi: codiBuscat })
             .then((result) => {
-                updateOne({ codi: codiBuscat },{jugador2: identificacio});
+                updateOne({ codi: codiBuscat },{j2: identificacio});
                 resolve(result);
             })
             .catch((err) => {
