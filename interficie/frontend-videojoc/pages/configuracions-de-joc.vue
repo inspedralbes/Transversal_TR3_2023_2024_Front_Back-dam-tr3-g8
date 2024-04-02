@@ -48,13 +48,14 @@ export default {
       this.infoEnemics = await getEnemics();
       console.log(this.infoEnemics);
       for(let i = 0; i< this.infoEnemics.length; i++){
-        if(this.infoEnemics[i].dificultat = 1){
+        console.log(this.infoEnemics[i])
+        if(this.infoEnemics[i].dificultat == 1){
           console.log("enemic facil afegit")
           this.enemicsFacil.push(this.infoEnemics[i])
-        } else if(this.infoEnemics[i].dificultat = 2) {
+        } else if(this.infoEnemics[i].dificultat == 2) {
           console.log("enemic normal afegit")
           this.enemicsNormal.push(this.infoEnemics[i])
-        }else if(this.infoEnemics[i].dificultat = 3) {
+        }else if(this.infoEnemics[i].dificultat == 3) {
           console.log("enemic dificil afegit")
           this.enemicsDificil.push(this.infoEnemics[i])
         }
@@ -92,11 +93,11 @@ export default {
         <p>
           Nivell de Dificultat: {{ gameDifficulty.toUpperCase() }}
         </p>
-        <input v-model="gameDifficulty" id="easy-diff" type="radio" value="facil" @click="difficultyChecker(gameDifficulty)">
+        <input v-model="gameDifficulty" id="easy-diff" type="radio" value="facil" @click="difficultyChecker('facil')">
         <label for="easy-diff">FACIL</label>
-        <input v-model="gameDifficulty" id="mid-diff" type="radio" value="normal" @click="difficultyChecker(gameDifficulty)">
+        <input v-model="gameDifficulty" id="mid-diff" type="radio" value="normal" @click="difficultyChecker('normal')">
         <label for="mid-diff">NORMAL</label>
-        <input v-model="gameDifficulty" id="hard-diff" type="radio" value="dificil" @click="difficultyChecker(gameDifficulty)">
+        <input v-model="gameDifficulty" id="hard-diff" type="radio" value="dificil" @click="difficultyChecker('dificil')">
         <label for="hard-diff">DIFICIL</label>
       </div>
     </div>

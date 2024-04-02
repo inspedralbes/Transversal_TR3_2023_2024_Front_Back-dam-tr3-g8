@@ -19,6 +19,7 @@ export async function getEnemics(){
     const response = await fetch(localURL + '/statsEnemics');
     const enemicInf = await response.json();
     console.log(enemicInf)
+    console.log("--------------------")
     return enemicInf
 }//recupera tots els enemics
 
