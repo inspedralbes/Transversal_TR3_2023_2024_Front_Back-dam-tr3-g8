@@ -94,7 +94,7 @@ export default {
           <input name="AD" id="protaAD" v-model="prota.AD" type="number" min="0" step="10">
           <div>
             <button class="update-info-button"
-              @click="updateProtaInfo(1, prota.nom, prota.vida, prota.MS, prota.AS, prota.AD)">Update Player
+              @click="updateProtaInfo(prota.id, prota.nom, prota.vida, prota.MS, prota.AS, prota.AD)">Update Player
               Info</button>
           </div>
         </div>
@@ -109,7 +109,7 @@ export default {
           <div class="indiv-npc-info" v-for="enemic in infoEnemics">
             <div>
               <p>{{ enemic.nom }}</p>
-              <button class="npc-more-info-button" @click="visible = true; npc = enemic; console.log('indiv info: ',npc);" >
+              <button class="npc-more-info-button" @click="visible = true; npc = enemic; console.log('indiv info: ',npc.nom, npc.vida);" >
                 More Info
               </button>
             </div>
@@ -124,7 +124,7 @@ export default {
             <input v-model="npc.AD" type="number" min="0" step="10">
             <div>
               <button class="update-info-button"
-                @click="updateNpcInfo(1, enemic.nom, enemic.vida, enemic.MS, enemic.AD); visible = false">Update Npc Info</button>
+                @click="updateNpcInfo(npc.id, npc.nom, npc.vida, npc.MS, npc.AD); visible = false">Update Npc Info</button>
             </div>
           </div>
         </div>
@@ -174,11 +174,13 @@ export default {
   border: 2px solid black;
   padding: 10px;
   width: 200px;
+  margin-left: 400px;
+  margin-top: -200px;
 }
 
 .indiv-npc-info {
   display: flex;
-  justify-content: space-between  ;
+  justify-content: space-between;
 }
 
 .update-info-button {
