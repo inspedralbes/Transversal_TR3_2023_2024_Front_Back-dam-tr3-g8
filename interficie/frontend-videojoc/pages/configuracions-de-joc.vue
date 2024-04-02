@@ -92,11 +92,11 @@ export default {
         <p>
           Nivell de Dificultat: {{ gameDifficulty.toUpperCase() }}
         </p>
-        <input v-model="gameDifficulty" id="easy-diff" type="radio" value="facil" @focusin="difficultyChecker(gameDifficulty)">
+        <input v-model="gameDifficulty" id="easy-diff" type="radio" value="facil" @click="difficultyChecker('facil')">
         <label for="easy-diff">FACIL</label>
-        <input v-model="gameDifficulty" id="mid-diff" type="radio" value="normal" @click="difficultyChecker(gameDifficulty)">
+        <input v-model="gameDifficulty" id="mid-diff" type="radio" value="normal" @click="difficultyChecker('normal')">
         <label for="mid-diff">NORMAL</label>
-        <input v-model="gameDifficulty" id="hard-diff" type="radio" value="dificil" @click="difficultyChecker(gameDifficulty)">
+        <input v-model="gameDifficulty" id="hard-diff" type="radio" value="dificil" @click="difficultyChecker('dificil')">
         <label for="hard-diff">DIFICIL</label>
       </div>
     </div>
