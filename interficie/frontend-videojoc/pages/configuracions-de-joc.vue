@@ -93,7 +93,7 @@ export default {
           <p>Attack Damage: {{ prota.AD }}</p>
           <input name="AD" id="protaAD" v-model="prota.AD" type="number" min="0" step="10">
           <div>
-            <button class="update-prota-info-button"
+            <button class="update-info-button"
               @click="updateProtaInfo(1, prota.nom, prota.vida, prota.MS, prota.AS, prota.AD)">Update Player
               Info</button>
           </div>
@@ -106,7 +106,6 @@ export default {
           <p><b>NPC SETTINGS</b></p>
         </div>
         <div class="npc-sprite-grid">
-          NPC SPRITE GRID
           <div class="indiv-npc-info" v-for="enemic in infoEnemics">
             <div>
               <p>{{ enemic.nom }}</p>
@@ -123,11 +122,8 @@ export default {
               <p>Attack Damage: {{ enemic.AD }}</p>
               <input v-model="enemic.AD" type="number" min="0" step="10">
               <div>
-                <button class="update-prota-info-button"
-                  @click="updateNpcInfo(1, enemic.nom, enemic.vida, enemic.MS, enemic.AD)">Update Npc Info</button>
-              </div>
-              <div>
-                <button class="npc-info-button" @click="visible = false">Close</button>
+                <button class="update-info-button"
+                  @click="updateNpcInfo(1, enemic.nom, enemic.vida, enemic.MS, enemic.AD); visible = false">Update Npc Info</button>
               </div>
             </div>
           </div>
@@ -147,6 +143,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  
 }
 
 .difficulty-settings-tab {
@@ -156,7 +153,7 @@ export default {
   opacity: 0.9;
   padding: 10px;
   width: 250px;
-  margin-bottom: 470px;
+  margin-bottom: 600px;
   font-family: 'Courier New', Courier, monospace;
 
 }
@@ -167,8 +164,9 @@ export default {
   background-color: lightgrey;
   opacity: 0.9;
   padding: 10px;
-  width: 700PX;
+  width: 700px;
   font-family: 'Courier New', Courier, monospace;
+  height: 450px;
 }
 
 .indiv-npc-settings {
@@ -183,7 +181,7 @@ export default {
   justify-content: space-between  ;
 }
 
-.update-prota-info-button {
+.update-info-button {
   margin-top: 15px;
   height: 25px;
   border-radius: 10px;

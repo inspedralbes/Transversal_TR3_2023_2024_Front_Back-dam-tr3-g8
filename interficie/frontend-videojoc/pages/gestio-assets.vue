@@ -1,4 +1,5 @@
 <script lang="ts" >
+import { getTenda } from '~/CommunicationsManager';
 export default{
   data(){
     return{
@@ -14,6 +15,15 @@ export default{
         disponible: false,
       }
     }
+  },
+  methods:{
+     async getAssets(){
+      this.assets = await getTenda();
+      console.log(this.assets);
+     }
+  },
+  created(){
+    this.getAssets();
   }
 }
 </script>
@@ -22,7 +32,7 @@ export default{
   <div class="background">
     <div class="assets-list">
       SPRITE GRID
-      <div class="indiv-sprite-settings">
+      <div class="indiv-sprite-settings" v-for="asset in assets">
         <p>Sprite Name: {{ asset.nom }}</p>
         <p>Sprite Type: {{ asset.tipus }}</p>
         <p>Sprite Type: {{ asset.disponible }}</p>
