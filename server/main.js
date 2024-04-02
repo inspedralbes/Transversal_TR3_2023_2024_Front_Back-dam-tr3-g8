@@ -193,6 +193,7 @@ app.get("/statsProta", async (req, res) => {
 
 app.get("/statsEnemics", async (req, res) => {
   stats = await operacionsEnemic.obtenirStatsEnemics()
+  console.log(stats)
   res.json(stats)
 })//retorna tots els enemics
 

@@ -10,6 +10,9 @@ export default {
       gameDifficulty: "",
       infoProta: [],
       infoEnemics: [],
+      enemicsFacil:[],
+      enemicsNormal:[],
+      enemicsDificil:[],
       protagonista: {
         id: 0,
         nom: "",
@@ -43,6 +46,19 @@ export default {
     },
     async getNpcInfo() {
       this.infoEnemics = await getEnemics();
+      console.log(this.infoEnemics);
+      for(let i = 0; i< this.infoEnemics.length; i++){
+        if(this.infoEnemics[i].dificultat = 1){
+          console.log("enemic facil afegit")
+          this.enemicsFacil.push(this.infoEnemics[i])
+        } else if(this.infoEnemics[i].dificultat = 2) {
+          console.log("enemic normal afegit")
+          this.enemicsNormal.push(this.infoEnemics[i])
+        }else if(this.infoEnemics[i].dificultat = 3) {
+          console.log("enemic dificil afegit")
+          this.enemicsDificil.push(this.infoEnemics[i])
+        }
+      }
     },
     async updateNpcInfo(id, nom, vida, MS, AD) {
       this.npc.id = id;
@@ -51,6 +67,15 @@ export default {
       this.npc.MS = MS,
         this.npc.AD = AD;
       await postEnemicUpdate(this.npc);
+    },
+    difficultyChecker(difficulty){
+      if(difficulty == "facil"){
+        console.log("enemics facils")
+      } else if(difficulty == "normal"){
+        console.log("enemics normals")
+      } else if(difficulty == "dificil"){
+        console.log("enemics dificils")
+      } 
     }
   },
   created() {
@@ -65,14 +90,14 @@ export default {
     <div class="difficulty-settings-tab">
       <div>
         <p>
-          Difficulty Level: {{ gameDifficulty.toUpperCase() }}
+          Nivell de Dificultat: {{ gameDifficulty.toUpperCase() }}
         </p>
-        <input v-model="gameDifficulty" id="easy-diff" type="radio" value="easy">
-        <label for="easy-diff">EASY</label>
-        <input v-model="gameDifficulty" id="mid-diff" type="radio" value="medium">
-        <label for="mid-diff">MEDIUM</label>
-        <input v-model="gameDifficulty" id="hard-diff" type="radio" value="hard">
-        <label for="hard-diff">HARD</label>
+        <input v-model="gameDifficulty" id="easy-diff" type="radio" value="facil" @click="difficultyChecker(gameDifficulty)">
+        <label for="easy-diff">FACIL</label>
+        <input v-model="gameDifficulty" id="mid-diff" type="radio" value="normal" @click="difficultyChecker(gameDifficulty)">
+        <label for="mid-diff">NORMAL</label>
+        <input v-model="gameDifficulty" id="hard-diff" type="radio" value="dificil" @click="difficultyChecker(gameDifficulty)">
+        <label for="hard-diff">DIFICIL</label>
       </div>
     </div>
     <div class="main-settings-tab">
@@ -109,6 +134,7 @@ export default {
           <div class="indiv-npc-info" v-for="enemic in infoEnemics">
             <div>
               <p>{{ enemic.nom }}</p>
+              <p>{{ enemic.dificultat }}</p>
               <button class="npc-more-info-button" @click="visible = true; npc = enemic; console.log('indiv info: ',npc.nom, npc.vida);" >
                 More Info
               </button>
@@ -152,7 +178,8 @@ export default {
   background-color: lightgrey;
   opacity: 0.9;
   padding: 10px;
-  width: 250px;
+  width: 300px;
+  margin-left: 25px;
   margin-bottom: 600px;
   font-family: 'Courier New', Courier, monospace;
 
@@ -174,8 +201,8 @@ export default {
   border: 2px solid black;
   padding: 10px;
   width: 200px;
-  margin-left: 400px;
-  margin-top: -200px;
+  margin-left: 475px;
+  margin-top: -270px;
 }
 
 .indiv-npc-info {
