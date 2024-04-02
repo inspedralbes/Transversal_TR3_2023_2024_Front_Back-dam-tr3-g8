@@ -117,11 +117,11 @@ export default {
           <div class="indiv-npc-settings" v-show="visible">
             <p>Npc Name: {{ npc.nom }}</p>
             <p>Max Hit Points: {{ npc.vida }}</p>
-            <input v-model="enemic.vida" class="player-hit-points" type="range" min="0" max="250" step="25">
+            <input v-model="npc.vida" class="player-hit-points" type="range" min="0" max="250" step="25">
             <p>Movement Speed: {{ npc.MS }}</p>
-            <input v-model="enemic.MS" type="number" min="5" max="25" step="5">
+            <input v-model="npc.MS" type="number" min="5" max="25" step="5">
             <p>Attack Damage: {{ npc.AD }}</p>
-            <input v-model="enemic.AD" type="number" min="0" step="10">
+            <input v-model="npc.AD" type="number" min="0" step="10">
             <div>
               <button class="update-info-button"
                 @click="updateNpcInfo(1, enemic.nom, enemic.vida, enemic.MS, enemic.AD); visible = false">Update Npc Info</button>
