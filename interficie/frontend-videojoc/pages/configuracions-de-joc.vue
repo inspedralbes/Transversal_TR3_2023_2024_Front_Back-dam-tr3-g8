@@ -10,6 +10,7 @@ export default {
       gameDifficulty: "",
       infoProta: [],
       infoEnemics: [],
+      enemicsMostrats:[],
       enemicsFacil:[],
       enemicsNormal:[],
       enemicsDificil:[],
@@ -72,11 +73,24 @@ export default {
     difficultyChecker(difficulty){
       if(difficulty == "facil"){
         console.log("enemics facils")
+        this.enemicsMostrats = this.enemicsFacil
+        console.log(this.enemicsMostrats)
+        this.visible = false;
       } else if(difficulty == "normal"){
         console.log("enemics normals")
+        this.enemicsMostrats = this.enemicsNormal
+        console.log(this.enemicsMostrats)
+        this.visible = false;
       } else if(difficulty == "dificil"){
         console.log("enemics dificils")
-      } 
+        this.enemicsMostrats = this.enemicsDificil
+        console.log(this.enemicsMostrats)
+        this.visible = false;
+      } else if(difficulty == "reset"){
+        this.enemicsMostrats = this.infoEnemics
+        console.log(this.enemicsMostrats)
+        this.visible = false;
+      }
     }
   },
   created() {
@@ -99,6 +113,7 @@ export default {
         <label for="mid-diff">NORMAL</label>
         <input v-model="gameDifficulty" id="hard-diff" type="radio" value="dificil" @click="difficultyChecker('dificil')">
         <label for="hard-diff">DIFICIL</label>
+        <button class="difficulty-filter-reset-button" @click="difficultyChecker('reset')">RESET</button>
       </div>
     </div>
     <div class="main-settings-tab">
@@ -132,10 +147,9 @@ export default {
           <p><b>NPC SETTINGS</b></p>
         </div>
         <div class="npc-sprite-grid">
-          <div class="indiv-npc-info" v-for="enemic in infoEnemics">
+          <div class="indiv-npc-info" v-for="enemic in enemicsMostrats">
             <div>
               <p>{{ enemic.nom }}</p>
-              <p>{{ enemic.dificultat }}</p>
               <button class="npc-more-info-button" @click="visible = true; npc = enemic; console.log('indiv info: ',npc.nom, npc.vida);" >
                 More Info
               </button>
@@ -203,7 +217,7 @@ export default {
   padding: 10px;
   width: 200px;
   margin-left: 475px;
-  margin-top: -270px;
+  margin-top: -160px;
 }
 
 .indiv-npc-info {
@@ -226,6 +240,13 @@ export default {
 }
 
 .npc-more-info-button{
+  height: 25px;
+  border-radius: 10px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.difficulty-filter-reset-button{
+  margin-left: 7px;
   height: 25px;
   border-radius: 10px;
   font-family: 'Courier New', Courier, monospace;
