@@ -33,9 +33,9 @@ export default{
     <div class="assets-list">
       SPRITE GRID
       <div class="indiv-sprite-settings" v-for="asset in assets">
-        <p>Sprite Name: {{ asset.nom }}</p>
+        <!--<p>Sprite Name: {{ asset.nom }}</p>
         <p>Sprite Type: {{ asset.tipus }}</p>
-        <p>Sprite Type: {{ asset.disponible }}</p>
+        <p>Sprite Type: {{ asset.disponible }}</p>-->
       </div>
     </div>
   </div>

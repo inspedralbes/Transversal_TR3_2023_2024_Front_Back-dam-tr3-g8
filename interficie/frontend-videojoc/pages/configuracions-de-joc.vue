@@ -21,9 +21,9 @@ export default {
       npc: {
         id: 0,
         nom: "",
-        vida: 50,
+        vida: 0,
         MS: 0,
-        AD: 25
+        AD: 0
       },
     };
   },
@@ -109,22 +109,22 @@ export default {
           <div class="indiv-npc-info" v-for="enemic in infoEnemics">
             <div>
               <p>{{ enemic.nom }}</p>
-              <button class="npc-more-info-button" @click="visible = true">
+              <button class="npc-more-info-button" @click="visible = true; npc = enemic; console.log('indiv info: ',npc);" >
                 More Info
               </button>
             </div>
-            <div class="indiv-npc-settings" v-show="visible">
-              <p>Npc Name: {{ enemic.nom }}</p>
-              <p>Max Hit Points: {{ enemic.vida }}</p>
-              <input v-model="enemic.vida" class="player-hit-points" type="range" min="0" max="250" step="25">
-              <p>Movement Speed: {{ enemic.MS }}</p>
-              <input v-model="enemic.MS" type="number" min="5" max="25" step="5">
-              <p>Attack Damage: {{ enemic.AD }}</p>
-              <input v-model="enemic.AD" type="number" min="0" step="10">
-              <div>
-                <button class="update-info-button"
-                  @click="updateNpcInfo(1, enemic.nom, enemic.vida, enemic.MS, enemic.AD); visible = false">Update Npc Info</button>
-              </div>
+          </div>
+          <div class="indiv-npc-settings" v-show="visible">
+            <p>Npc Name: {{ npc.nom }}</p>
+            <p>Max Hit Points: {{ npc.vida }}</p>
+            <input v-model="enemic.vida" class="player-hit-points" type="range" min="0" max="250" step="25">
+            <p>Movement Speed: {{ npc.MS }}</p>
+            <input v-model="enemic.MS" type="number" min="5" max="25" step="5">
+            <p>Attack Damage: {{ npc.AD }}</p>
+            <input v-model="enemic.AD" type="number" min="0" step="10">
+            <div>
+              <button class="update-info-button"
+                @click="updateNpcInfo(1, enemic.nom, enemic.vida, enemic.MS, enemic.AD); visible = false">Update Npc Info</button>
             </div>
           </div>
         </div>
