@@ -55,7 +55,6 @@ async function connexioEnemics() {
           nom: nouEnemic.nom,
           vida: nouEnemic.vida,
           MS: nouEnemic.MS,
-          AS: nouEnemic.AS,
           AD: nouEnemic.AD
         }
       }
