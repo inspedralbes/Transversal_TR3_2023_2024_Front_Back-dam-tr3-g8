@@ -26,6 +26,7 @@ const operacionsProta = require("./operacionsMongo/operacionsProtagonista");
 const operacionsEnemic = require("./operacionsMongo/opercionsEnemics");
 const operacionsOdoo = require("./operacionsOdoo/operacionsOdoo");
 const operacionsBroadcast = require("./operacionsMongo/operacionsBroadcast");
+const operacionsPartida = require("./operacionsMongo/operacionsPartida")
 
 const PORT = 3817;
 
@@ -45,6 +46,7 @@ server.listen(PORT, async () => {
   await operacionsProta.connexioJugador();
   await operacionsUser.connexioUsuari();
   await operacionsBroadcast.connexioBroadcast();
+  //await operacionsPartida.buscarPartida();
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 
@@ -152,20 +154,23 @@ app.get("/veureBroadcasts", async (req, res) => {
   res.json(missatges)
 })//reenvia tots els broadcasts de la base de dades a android
 
-app.post("/crearPartida", async(req,res)=>{
-  partida={
-    dificultat:req.body.dificultat,
-    codi:generarNouCodiSala()
-  }
-  
-})
-app.post("/unirseAPartida", async(req,res)=>{
-  codi=req.body
-})
 
-io.on('connection', (socket, identificacio, codiPartida) => {
+io.on('connection', (socket, identificacio) => {
   //Utilitzem "identificacio" com el token que obtenen els usuaris a fer login per identificar qui es qui per evitar que el 2n player faci els moviments del primer jugador
 
+  socket.on('crearSala', async (dificultat, identificacio) => {
+    partida={
+      dificultat:dificultat,
+      codi:operacionsPartida.generarNouCodiSala(),
+      j1:identificacio
+    }
+    await operacionsPartida.crearPartida(partida)
+    socket.broadcast.emit('creacio', "Sala creada, bona sort jugant" )
+  })//Crear una sala
+  socket.on('unirseAsala', async (codi, identificacio) => {
+    await operacionsPartida.unirseAPartida(codi, identificacio)
+    socket.broadcast.emit('creacio', "Sala creada, bona sort jugant" )
+  })//Crear una sala
   socket.on('moviment', (direccio) => {
     socket.broadcast.emit('movimentJugador', { direccio, identificacio })
   })//enviar a android que l'altre jugador a començat a moures
@@ -179,7 +184,7 @@ io.on('connection', (socket, identificacio, codiPartida) => {
   })//enviar a android que l'altre jugador a atacat
   
   socket.on('desconectar', () => {
-    tancarSala(codiPartida)
+    operacionsPartida.tancarSala(codiPartida)
   })//enviar a android que l'altre jugador a atacat
 
 })//socket per permetre el multijugador a android, esta preparat per dos jugadors nomes

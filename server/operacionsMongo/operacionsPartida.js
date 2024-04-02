@@ -43,7 +43,7 @@ async function crearPartida(novaPartida) {
 
 async function buscarPartida(codiBuscat) {
     return new Promise((resolve, reject) => {
-        taulaUsuari
+        taulaPartida
             .findOne({ codi: codiBuscat })
             .then((result) => {
                 resolve(result);
@@ -58,7 +58,7 @@ async function buscarPartida(codiBuscat) {
 
 async function unirseAPartida(codiBuscat,identificacio) {
     return new Promise((resolve, reject) => {
-        taulaUsuari
+        taulaPartida
             .findOne({ codi: codiBuscat })
             .then((result) => {
                 updateOne({ codi: codiBuscat },{jugador2: identificacio});
@@ -72,9 +72,19 @@ async function unirseAPartida(codiBuscat,identificacio) {
 
 }
 
+async function tancarSala(codi){
+
+}
+
+async function generarNouCodiSala(){
+
+}
+
 module.exports = {
     crearPartida,
     connexioPartida,
     buscarPartida,
-    unirseAPartida
+    unirseAPartida,
+    tancarSala,
+    generarNouCodiSala
 }
