@@ -17,7 +17,7 @@ async function connexioPartida() {
             .connect()
             .then(() => {
                 let database = client.db(dbName);
-                taulaBroadcast = database.collection("partida");
+                taulaPartida = database.collection("partida");
                 resolve();
             })
             .catch((err) => {
@@ -56,12 +56,12 @@ async function buscarPartida(codiBuscat) {
 
 }
 
-async function unirseAPartida(codiBuscat,identificacio) {
+async function unirseAPartida(codiBuscat, identificacio) {
     return new Promise((resolve, reject) => {
         taulaPartida
             .findOne({ codi: codiBuscat })
             .then((result) => {
-                updateOne({ codi: codiBuscat },{jugador2: identificacio});
+                updateOne({ codi: codiBuscat }, { j2: identificacio });
                 resolve(result);
             })
             .catch((err) => {
@@ -72,13 +72,40 @@ async function unirseAPartida(codiBuscat,identificacio) {
 
 }
 
-async function tancarSala(codi){
+async function tancarSala(codi) {
 
 }
 
-async function generarNouCodiSala(){
+async function generarNouCodiSala() {
+    let codiValid = false;
+    while (!codiValid) {
+        let codiNou = crearCodi()
+        codiValid=revisarCodiExistent(codiNou)
+    }
+    return codiNou
+}//crea un codi i comproba que es valid
 
-}
+function crearCodi() {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < 5) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        counter += 1;
+    }
+    return result;
+}//crear un codi de 5 digits utilitzant els diferents caracters disponibles
+
+async function revisarCodiExistent(codi) {
+    let result = await buscarPartida(codi)
+    if (result == {}) {
+        return false
+    }
+    else
+        return true
+}//comproba si hi ha alguna partida utilitzant el mateix codi per autoritzar/denegar el codi proposat
+
 
 module.exports = {
     crearPartida,

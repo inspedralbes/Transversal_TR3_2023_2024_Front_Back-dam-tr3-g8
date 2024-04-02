@@ -49,7 +49,6 @@ export default {
       this.infoEnemics = await getEnemics();
       console.log(this.infoEnemics);
       for(let i = 0; i< this.infoEnemics.length; i++){
-        console.log(this.infoEnemics[i])
         if(this.infoEnemics[i].dificultat == 1){
           console.log("enemic facil afegit")
           this.enemicsFacil.push(this.infoEnemics[i])
