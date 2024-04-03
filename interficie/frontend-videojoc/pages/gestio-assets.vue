@@ -1,8 +1,9 @@
-<script lang="ts" >
+<script lang="ts">
 import { getTenda } from '~/CommunicationsManager';
-export default{
-  data(){
-    return{
+export default {
+  data() {
+    return {
+      visible: false,
       assets: [],
       asset: {
         id: 0,
@@ -16,13 +17,13 @@ export default{
       }
     }
   },
-  methods:{
-     async getAssets(){
+  methods: {
+    async getAssets() {
       this.assets = await getTenda();
       console.log(this.assets);
-     }
+    }
   },
-  created(){
+  created() {
     this.getAssets();
   }
 }
@@ -30,12 +31,15 @@ export default{
 
 <template>
   <div class="background">
-    <div class="assets-list">
-      SPRITE GRID
-      <div class="indiv-sprite-settings" v-for="asset in assets">
-        <!--<p>Sprite Name: {{ asset.nom }}</p>
-        <p>Sprite Type: {{ asset.tipus }}</p>
-        <p>Sprite Type: {{ asset.disponible }}</p>-->
+    <div class="assets-grid">
+      <div class="indiv-asset-info" v-for="asset in assets">
+        <div>
+
+          <p>Sprite Name: {{ asset.nom }}</p>
+          <p>Sprite Type: {{ asset.tipus }}</p>
+          <p>Sprite Type: {{ asset.disponible }}</p>
+          <button class="edit-asset-info-button">Configura Info Asset</button>
+        </div>
       </div>
     </div>
   </div>
@@ -53,14 +57,20 @@ export default{
   background-position: center;
 }
 
-.assets-list {
+.assets-grid {
   border-radius: 15px;
   border: 2px solid black;
   background-color: lightgrey;
   opacity: 0.75;
-  padding: 10px;  display: flex;
+  padding: 10px;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
 
+.edit-asset-info-button{
+  height: 25px;
+  border-radius: 10px;
+  font-family: 'Courier New', Courier, monospace;
+}
 </style>

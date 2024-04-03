@@ -10,10 +10,10 @@ export default {
       gameDifficulty: "",
       infoProta: [],
       infoEnemics: [],
-      enemicsMostrats:[],
-      enemicsFacil:[],
-      enemicsNormal:[],
-      enemicsDificil:[],
+      enemicsMostrats: [],
+      enemicsFacil: [],
+      enemicsNormal: [],
+      enemicsDificil: [],
       protagonista: {
         id: 0,
         nom: "",
@@ -48,18 +48,19 @@ export default {
     async getNpcInfo() {
       this.infoEnemics = await getEnemics();
       console.log(this.infoEnemics);
-      for(let i = 0; i< this.infoEnemics.length; i++){
-        if(this.infoEnemics[i].dificultat == 1){
+      for (let i = 0; i < this.infoEnemics.length; i++) {
+        if (this.infoEnemics[i].dificultat == 1) {
           console.log("enemic facil afegit")
           this.enemicsFacil.push(this.infoEnemics[i])
-        } else if(this.infoEnemics[i].dificultat == 2) {
+        } else if (this.infoEnemics[i].dificultat == 2) {
           console.log("enemic normal afegit")
           this.enemicsNormal.push(this.infoEnemics[i])
-        }else if(this.infoEnemics[i].dificultat == 3) {
+        } else if (this.infoEnemics[i].dificultat == 3) {
           console.log("enemic dificil afegit")
           this.enemicsDificil.push(this.infoEnemics[i])
         }
       }
+      this.difficultyChecker("reset");
     },
     async updateNpcInfo(id, nom, vida, MS, AD) {
       this.npc.id = id;
@@ -69,23 +70,23 @@ export default {
         this.npc.AD = AD;
       await postEnemicUpdate(this.npc);
     },
-    difficultyChecker(difficulty){
-      if(difficulty == "facil"){
+    difficultyChecker(difficulty) {
+      if (difficulty == "facil") {
         console.log("enemics facils")
         this.enemicsMostrats = this.enemicsFacil
         console.log(this.enemicsMostrats)
         this.visible = false;
-      } else if(difficulty == "normal"){
+      } else if (difficulty == "normal") {
         console.log("enemics normals")
         this.enemicsMostrats = this.enemicsNormal
         console.log(this.enemicsMostrats)
         this.visible = false;
-      } else if(difficulty == "dificil"){
+      } else if (difficulty == "dificil") {
         console.log("enemics dificils")
         this.enemicsMostrats = this.enemicsDificil
         console.log(this.enemicsMostrats)
         this.visible = false;
-      } else if(difficulty == "reset"){
+      } else if (difficulty == "reset") {
         this.enemicsMostrats = this.infoEnemics
         console.log(this.enemicsMostrats)
         this.visible = false;
@@ -110,9 +111,10 @@ export default {
         <label for="easy-diff">FACIL</label>
         <input v-model="gameDifficulty" id="mid-diff" type="radio" value="normal" @click="difficultyChecker('normal')">
         <label for="mid-diff">NORMAL</label>
-        <input v-model="gameDifficulty" id="hard-diff" type="radio" value="dificil" @click="difficultyChecker('dificil')">
+        <input v-model="gameDifficulty" id="hard-diff" type="radio" value="dificil"
+          @click="difficultyChecker('dificil')">
         <label for="hard-diff">DIFICIL</label>
-        <button class="difficulty-filter-reset-button" @click="difficultyChecker('reset')">RESET</button>
+        <button class="difficulty-filter-reset-button" @click="difficultyChecker('reset'); gameDifficulty = ''">RESET</button>
       </div>
     </div>
     <div class="main-settings-tab">
@@ -149,7 +151,8 @@ export default {
           <div class="indiv-npc-info" v-for="enemic in enemicsMostrats">
             <div>
               <p>{{ enemic.nom }}</p>
-              <button class="npc-more-info-button" @click="visible = true; npc = enemic; console.log('indiv info: ',npc.nom, npc.vida);" >
+              <button class="npc-more-info-button"
+                @click="visible = true; npc = enemic; console.log('indiv info: ', npc.nom, npc.vida);">
                 More Info
               </button>
             </div>
@@ -164,7 +167,9 @@ export default {
             <input v-model="npc.AD" type="number" min="0" step="10">
             <div>
               <button class="update-info-button"
-                @click="updateNpcInfo(npc.id, npc.nom, npc.vida, npc.MS, npc.AD); visible = false">Update Npc Info</button>
+                @click="updateNpcInfo(npc.id, npc.nom, npc.vida, npc.MS, npc.AD); visible = false">
+                Configura Info Enemic
+              </button>
             </div>
           </div>
         </div>
@@ -183,7 +188,7 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  
+
 }
 
 .difficulty-settings-tab {
@@ -231,20 +236,13 @@ export default {
   font-family: 'Courier New', Courier, monospace;
 }
 
-.npc-info-button {
-  margin-top: 15px;
+.npc-more-info-button {
   height: 25px;
   border-radius: 10px;
   font-family: 'Courier New', Courier, monospace;
 }
 
-.npc-more-info-button{
-  height: 25px;
-  border-radius: 10px;
-  font-family: 'Courier New', Courier, monospace;
-}
-
-.difficulty-filter-reset-button{
+.difficulty-filter-reset-button {
   margin-left: 7px;
   height: 25px;
   border-radius: 10px;
