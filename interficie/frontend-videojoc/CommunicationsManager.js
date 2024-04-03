@@ -23,6 +23,12 @@ export async function getEnemics(){
     return enemicInf
 }//recupera tots els enemics
 
+export async function getSprites(){
+    const response = await fetch(localURL + '/mirarSprites');
+    const spritesSheets = await response.json();
+    return spritesSheets
+}//recupera tots els spritesheets
+
 
 
 export async function postProtagonistaUpdate(protagonista){

@@ -91,15 +91,25 @@ app.post("/inserirAsset", async (req, res) => {
 
 app.post("/actulitzarSprite", async (req, res) => {
   let nouSpriteSheet = req.body.imatge
-  let nouNom = req.body.nom
+  let nouNom = spritesheets + "/" + req.body.nom + ".png"
   fs.writeFile(nouNom, nouSpriteSheet, { encoding: 'base64' }, function (err) {
     console.log('File created');
   });
 
 })//substitueix la imatge per la nova
 
-app.post("/mirarSprites", async (req, res) => {
-
+app.get("/mirarSprites", async (req, res) => {
+  let arraySprites = [{}]
+  fs.readdir(spritesheets, function (err, files) {
+    files.forEach(async function (file, index) {
+      arraySprites[index] = {
+        nom: file,
+        imatge: base64_encode(file)
+      }
+    })
+  })
+  arraySprites=JSON.parse(arraySprites)
+  res.json(arraySprites)
 })
 
 
@@ -237,3 +247,4 @@ function base64_encode(file) {
   // convert binary data to base64 encoded string
   return new Buffer(bitmap).toString('base64');
 }//funcio auxilar per codificar fotos
+
