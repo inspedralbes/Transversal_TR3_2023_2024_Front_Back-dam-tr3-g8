@@ -46,7 +46,7 @@ server.listen(PORT, async () => {
   await operacionsProta.connexioJugador();
   await operacionsUser.connexioUsuari();
   await operacionsBroadcast.connexioBroadcast();
-  await operacionsPartida.buscarPartida();
+  //await operacionsPartida.buscarPartida();
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 
