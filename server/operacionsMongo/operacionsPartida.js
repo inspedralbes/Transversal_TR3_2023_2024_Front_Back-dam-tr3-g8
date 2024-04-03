@@ -44,22 +44,21 @@ async function crearPartida(novaPartida) {
 async function buscarPartida(codiBuscat) {
     return new Promise((resolve, reject) => {
         taulaPartida
-            .findOne({ codi: codiBuscat })
-            .then((result) => {
-                resolve(result);
-            })
-            .catch((err) => {
-                console.error(err);
-                reject(err);
-            });
+        .findOne({ codi: codiBuscat })
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((err) => {
+          console.error(err);
+          reject(err);
+        });
     });
-
 }
 
 async function unirseAPartida(codiBuscat, identificacio) {
     return new Promise((resolve, reject) => {
         taulaPartida
-            .findOne({ codi: codiBuscat })
+            .find({ codi: codiBuscat })
             .then((result) => {
                 updateOne({ codi: codiBuscat }, { j2: identificacio });
                 resolve(result);

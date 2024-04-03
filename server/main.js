@@ -46,7 +46,7 @@ server.listen(PORT, async () => {
   await operacionsProta.connexioJugador();
   await operacionsUser.connexioUsuari();
   await operacionsBroadcast.connexioBroadcast();
-  await operacionsPartida.buscarPartida();
+  await operacionsPartida.connexioPartida();
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 
@@ -54,7 +54,6 @@ server.listen(PORT, async () => {
 
 app.get("/controlTenda", async (req, res) => {
   let productes = await operacionsAssets.obtenirAssets();
-  //productes=JSON.parse(productes);
   res.json(productes)
 })//envia tots els assets de la bbdd a interficie
 
@@ -202,6 +201,7 @@ app.get("/statsEnemics", async (req, res) => {
 })//retorna tots els enemics
 
 //---------------------Procesos odoo------------------//
+
 
 
 //---------------------Funcions auxiliars------------------//
