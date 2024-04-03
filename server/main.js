@@ -3,10 +3,11 @@ const http = require("http");
 const cors = require("cors");
 const app = express();
 const server = http.createServer(app);
-const soket= require("socket.io");
+const soket = require("socket.io");
 const io = soket(server)
 //const path = require('path');
 const crypto = require('crypto');
+const fs = require('fs');
 //const imatges = require('join-images')
 const jwt = require("jsonwebtoken");
 app.use(express.json({ strict: false }))
@@ -19,7 +20,7 @@ app.use(cors(
     "optionsSuccessStatus": 204
   }
 ))
-const spritesheetOriginal = "../assetsNode/spritesheet.png";
+const spritesheets = "../assetsNode";
 const operacionsAssets = require("./operacionsMongo/operacionsAssets");
 const operacionsUser = require("./operacionsMongo/operacionsUsuaris");
 const operacionsProta = require("./operacionsMongo/operacionsProtagonista");
@@ -88,15 +89,18 @@ app.post("/inserirAsset", async (req, res) => {
   await operacionsAssets.crearAsset(nouAsset)
 })//reb un objecte asset i l'insereix directament a mongo
 
-app.post("/afegirImatge", async (req, res) => {
-  nouSprite = decode(req.body)
-  imatges.joinImages([spritesheetOriginal, nouSprite], "vertical").then((img) => {
-    // Save image as file
-    img.toFile(spritesheetOriginal);
+app.post("/actulitzarSprite", async (req, res) => {
+  let nouSpriteSheet = req.body.imatge
+  let nouNom = req.body.nom
+  fs.writeFile(nouNom, nouSpriteSheet, { encoding: 'base64' }, function (err) {
+    console.log('File created');
   });
-})//funcio en proces, ha d'agafar el nou spritesheet encriptat de interficie i adjuntarlo al final del spritesheet que tenim a ./assetsNode; 
-//la funcio .joinimages adejunta el parametre 1 mes parametre 2 en el format de parametre 3 i despres sobrescriu la spritesheet original amb el resultat
 
+})//substitueix la imatge per la nova
+
+app.post("/mirarSprites", async (req, res) => {
+
+})
 
 
 //---------------------Crides android------------------//
@@ -159,22 +163,22 @@ io.on('connection', (socket, identificacio) => {
   let codiSala
 
   socket.on('crearSala', async (dificultat, identificacio) => {
-    partida={
-      dificultat:dificultat,
-      codi:await operacionsPartida.generarNouCodiSala(),
-      j1:identificacio
+    partida = {
+      dificultat: dificultat,
+      codi: await operacionsPartida.generarNouCodiSala(),
+      j1: identificacio
     }
     await operacionsPartida.crearPartida(partida)
-    codiSala=partida.codi
+    codiSala = partida.codi
     socket.join(codiSala)
-    socket.to(codiSala).broadcast.emit('creacio', "Sala creada, bona sort jugant" )
+    socket.to(codiSala).broadcast.emit('creacio', "Sala creada, bona sort jugant")
   })//Crear una sala
 
   socket.on('unirseAsala', async (codi, identificacio) => {
     await operacionsPartida.unirseAPartida(codi, identificacio)
-    infoPartida= await operacionsPartida.buscarPartida(codi)
+    infoPartida = await operacionsPartida.buscarPartida(codi)
     socket.join(codiSala)
-    socket.to(codiSala).broadcast.emit('creacio', infoPartida )
+    socket.to(codiSala).broadcast.emit('creacio', infoPartida)
   })//Uneix el jugador a una sala i retorna la configuracio de la sala
 
   socket.on('moviment', (direccio) => {
@@ -186,9 +190,9 @@ io.on('connection', (socket, identificacio) => {
   })//enviar a android que l'altre jugador a acabat el moviment
 
   socket.on('atacar', () => {
-    socket.to(codiSala).broadcast.emit('jugadorAtaca', {identificacio})
+    socket.to(codiSala).broadcast.emit('jugadorAtaca', { identificacio })
   })//enviar a android que l'altre jugador a atacat
-  
+
   socket.on('desconectar', async () => {
     await operacionsPartida.tancarSala(codiPartida)
   })//tanca la sala
@@ -226,3 +230,10 @@ function desencriptar(data) {
   decrypted += decipher.final('utf8');
   return decrypted
 } //desencripta la contrasenya per poder validar el login
+
+function base64_encode(file) {
+  // read binary data
+  var bitmap = fs.readFileSync(file);
+  // convert binary data to base64 encoded string
+  return new Buffer(bitmap).toString('base64');
+}//funcio auxilar per codificar fotos

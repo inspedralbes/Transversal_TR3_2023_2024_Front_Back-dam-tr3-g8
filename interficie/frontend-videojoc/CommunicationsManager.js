@@ -92,3 +92,29 @@ export async function postCrearAsset(nouAsset){
         }
     );
 }
+
+export async function postActualitzarImatge(novaSpriteSheet){
+    //novaSpriteSheet{nom:"el nom de la sprite que rebs", imatge:"la spritesheet codificada a base64"}
+    const response = await fetch(localURL + '/actulitzarSprite',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(novaSpriteSheet),
+            mode: "cors"
+        }
+    );
+}
+
+/* decodeBase64Image(base64String) {
+      const binaryString = atob(base64String);
+      const bytes = new Uint8Array(binaryString.length);
+      for (let i = 0; i < binaryString.length; i++) {
+        bytes[i] = binaryString.charCodeAt(i);
+      }
+      const blob = new Blob([bytes], { type: "image/jpeg" }); // Ajusta el tipo MIME según tu imagen
+      this.producteEditat.foto = URL.createObjectURL(blob);
+      return URL.createObjectURL(blob);
+    }
+  }*/ //codi per decodificar imatges
