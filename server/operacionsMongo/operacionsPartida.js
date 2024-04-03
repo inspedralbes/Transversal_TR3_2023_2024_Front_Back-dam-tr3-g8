@@ -39,27 +39,26 @@ async function crearPartida(novaPartida) {
                 reject(err);
             });
     });
-}
+}//crea una partida amb les dades proporcionades
 
 async function buscarPartida(codiBuscat) {
     return new Promise((resolve, reject) => {
         taulaPartida
-            .findOne({ codi: codiBuscat })
-            .then((result) => {
-                resolve(result);
-            })
-            .catch((err) => {
-                console.error(err);
-                reject(err);
-            });
+        .findOne({ codi: codiBuscat })
+        .then((result) => {
+          resolve(result);
+        })
+        .catch((err) => {
+          console.error(err);
+          reject(err);
+        });
     });
-
-}
+}//busca una sala i retorna la info
 
 async function unirseAPartida(codiBuscat, identificacio) {
     return new Promise((resolve, reject) => {
         taulaPartida
-            .findOne({ codi: codiBuscat })
+            .find({ codi: codiBuscat })
             .then((result) => {
                 updateOne({ codi: codiBuscat }, { j2: identificacio });
                 resolve(result);
@@ -70,11 +69,21 @@ async function unirseAPartida(codiBuscat, identificacio) {
             });
     });
 
-}
+}//busca una partida i uneix el jugador a ella
 
-async function tancarSala(codi) {
-
-}
+async function tancarSala(codiAborrar) {
+    return new Promise((resolve, reject) => {
+        taulaPartida
+        .deleteOne({ codi: codiAborrar })
+        .then((result) => {
+          resolve();
+        })
+        .catch((err) => {
+          console.error(err);
+          reject(err);
+        });
+    });
+}//pasem un codi i borrem la partida
 
 async function generarNouCodiSala() {
     let codiValid = false;

@@ -46,7 +46,7 @@ server.listen(PORT, async () => {
   await operacionsProta.connexioJugador();
   await operacionsUser.connexioUsuari();
   await operacionsBroadcast.connexioBroadcast();
-  //await operacionsPartida.buscarPartida();
+  await operacionsPartida.connexioPartida();
   console.log(`Server is running on http://localhost:${PORT}`);
 });
 
@@ -54,7 +54,6 @@ server.listen(PORT, async () => {
 
 app.get("/controlTenda", async (req, res) => {
   let productes = await operacionsAssets.obtenirAssets();
-  //productes=JSON.parse(productes);
   res.json(productes)
 })//envia tots els assets de la bbdd a interficie
 
@@ -157,35 +156,42 @@ app.get("/veureBroadcasts", async (req, res) => {
 
 io.on('connection', (socket, identificacio) => {
   //Utilitzem "identificacio" com el token que obtenen els usuaris a fer login per identificar qui es qui per evitar que el 2n player faci els moviments del primer jugador
+  let codiSala
 
   socket.on('crearSala', async (dificultat, identificacio) => {
     partida={
       dificultat:dificultat,
-      codi:operacionsPartida.generarNouCodiSala(),
+      codi:await operacionsPartida.generarNouCodiSala(),
       j1:identificacio
     }
     await operacionsPartida.crearPartida(partida)
-    socket.broadcast.emit('creacio', "Sala creada, bona sort jugant" )
+    codiSala=partida.codi
+    socket.join(codiSala)
+    socket.to(codiSala).broadcast.emit('creacio', "Sala creada, bona sort jugant" )
   })//Crear una sala
+
   socket.on('unirseAsala', async (codi, identificacio) => {
     await operacionsPartida.unirseAPartida(codi, identificacio)
-    socket.broadcast.emit('creacio', "Sala creada, bona sort jugant" )
-  })//Crear una sala
+    infoPartida= await operacionsPartida.buscarPartida(codi)
+    socket.join(codiSala)
+    socket.to(codiSala).broadcast.emit('creacio', infoPartida )
+  })//Uneix el jugador a una sala i retorna la configuracio de la sala
+
   socket.on('moviment', (direccio) => {
-    socket.broadcast.emit('movimentJugador', { direccio, identificacio })
+    socket.to(codiSala).broadcast.emit('movimentJugador', { direccio, identificacio })
   })//enviar a android que l'altre jugador a començat a moures
 
   socket.on('acabarMoviment', (direccio) => {
-    socket.broadcast.emit('acabarMovimentJugador', { direccio, identificacio })
+    socket.to(codiSala).broadcast.emit('acabarMovimentJugador', { direccio, identificacio })
   })//enviar a android que l'altre jugador a acabat el moviment
 
   socket.on('atacar', () => {
-    socket.broadcast.emit('jugadorAtaca', {identificacio})
+    socket.to(codiSala).broadcast.emit('jugadorAtaca', {identificacio})
   })//enviar a android que l'altre jugador a atacat
   
-  socket.on('desconectar', () => {
-    operacionsPartida.tancarSala(codiPartida)
-  })//enviar a android que l'altre jugador a atacat
+  socket.on('desconectar', async () => {
+    await operacionsPartida.tancarSala(codiPartida)
+  })//tanca la sala
 
 })//socket per permetre el multijugador a android, esta preparat per dos jugadors nomes
 
@@ -202,6 +208,7 @@ app.get("/statsEnemics", async (req, res) => {
 })//retorna tots els enemics
 
 //---------------------Procesos odoo------------------//
+
 
 
 //---------------------Funcions auxiliars------------------//
