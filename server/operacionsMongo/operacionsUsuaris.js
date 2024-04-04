@@ -120,7 +120,43 @@ async function updateMonedas(novaCantitat, usuari) {
   });
 }//busca l'usuari a la base de dades i reemplaça les monedas
 
+async function comprarProducte(producte, monedas, user) {
+  updateMonedas(monedas, user)
+  usuari = await buscarUsuari(user)
+  usuari.assetsPropietat.push(producte)
+  return new Promise((resolve, reject) => {
+    taulaUsuari
+      .updateOne(
+        {
+          id: user,
+        },
+        {
+          $set: usuari
+        }
+      )
+      .then((result) => {
+        resolve();
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  }); user
+}
 
+async function buscarUsuari(username) {
+  return new Promise((resolve, reject) => {
+    taulaAssets
+      .findOne({ username: username })
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+}
 async function crearUsuari(usuari, contrasenya, email) {
   let novaID = "";
   let nouUsuari = {
@@ -142,5 +178,6 @@ module.exports = {
   crearUsuari,
   connexioUsuari,
   acabarPartida,
-  updateMonedas
+  updateMonedas,
+  comprarProducte
 }

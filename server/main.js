@@ -172,6 +172,12 @@ app.post("/acabarPartida", async (req,res)=>{
   await operacionsUser.acabarPartida(dadespartida)
 })
 
+app.post("/comprarItems", async(req, res)=>{
+  producte=await operacionsAssets.obtenirAssetEspecific(req.body.producteComprat)
+  await operacionsUser.comprarProducte(producte, req.body.monedas, req.body.user)
+})
+
+
 io.on('connection', (socket, identificacio) => {
   //Utilitzem "identificacio" com el token que obtenen els usuaris a fer login per identificar qui es qui per evitar que el 2n player faci els moviments del primer jugador
   let codiSala
