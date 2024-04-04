@@ -16,7 +16,7 @@ app.use(cors(
 
 const operacionsBroadcast = require("./operacionsMongo/operacionsBroadcast");
 
-const PORT = 3817;
+const PORT = 3819;
 
 server.listen(PORT, async () => {
   //iniciem les connexions a mongo per no alentir les operacions mes endavant
