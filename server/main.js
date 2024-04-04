@@ -101,14 +101,14 @@ app.post("/actulitzarSprite", async (req, res) => {
 app.get("/mirarSprites", async (req, res) => {
   let arraySprites = [{}]
   fs.readdir(spritesheets, function (err, files) {
-    files.forEach(async function (file, index) {
-      arraySprites[index] = {
-        nom: file,
-        imatge: base64_encode(file)
+    for (let i = 0; i < files.length; i++) {
+      arraySprites[i] = {
+        nom: files[i],
+        imatge: base64_encode(files[i])
       }
-    })
+    }
   })
-  arraySprites=JSON.parse(arraySprites)
+  arraySprites = JSON.parse(arraySprites)
   res.json(arraySprites)
 })
 
