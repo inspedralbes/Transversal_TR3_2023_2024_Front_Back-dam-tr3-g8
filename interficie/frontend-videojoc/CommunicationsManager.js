@@ -1,6 +1,9 @@
-const BASEURL = '';
-const localURL = 'http://localhost:3817'
-
+const localURL = 'http://localhost:3817' //preDocker
+const broadcastURL=''//connexio Docker broadcast
+const dockerURL=``//connexio Docker docker
+const assetsURL=''//connexio Docker assets
+const usersURL=''//connexio Docker users
+const partidaURL=''//connexio Docker partida
 
 
 export async function getTenda(){
