@@ -167,6 +167,10 @@ app.get("/veureBroadcasts", async (req, res) => {
   res.json(missatges)
 })//reenvia tots els broadcasts de la base de dades a android
 
+app.post("/acabarPartida", async (req,res)=>{
+  dadespartida=req.body
+  await operacionsUser.acabarPartida(dadespartida)
+})
 
 io.on('connection', (socket, identificacio) => {
   //Utilitzem "identificacio" com el token que obtenen els usuaris a fer login per identificar qui es qui per evitar que el 2n player faci els moviments del primer jugador
