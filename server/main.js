@@ -3,15 +3,8 @@ const http = require("http");
 const cors = require("cors");
 const app = express();
 const server = http.createServer(app);
-const soket = require("socket.io");
-const io = soket(server)
-//const path = require('path');
-const crypto = require('crypto');
 const fs = require('fs');
-//const imatges = require('join-images')
-const jwt = require("jsonwebtoken");
 app.use(express.json({ strict: false }))
-//app.use(bodyParser.json());
 app.use(cors(
   {
     "origin": "*",
@@ -27,15 +20,6 @@ const operacionsEnemic = require("./operacionsMongo/opercionsEnemics");
 const operacionsOdoo = require("./operacionsOdoo/operacionsOdoo");
 
 const PORT = 3818;
-
-/*app.listen(PORT, async () => {
-  await operacionsAssets.connexioAssets();
-  await operacionsEnemic.connexioEnemics();
-  await operacionsProta.connexioJugador();
-  await operacionsUser.connexioUsuari();
-  await operacionsBroadcast.connexioBroadcast();
-  console.log(`Server is running on http://localhost:${PORT}`);
-});*/
 
 server.listen(PORT, async () => {
   //iniciem les connexions a mongo per no alentir les operacions mes endavant
@@ -84,14 +68,14 @@ app.post("/actulitzarSprite", async (req, res) => {
 app.get("/mirarSprites", async (req, res) => {
   let arraySprites = [{}]
   fs.readdir(spritesheets, function (err, files) {
-    files.forEach(async function (file, index) {
-      arraySprites[index] = {
-        nom: file,
-        imatge: base64_encode(file)
+    for (let i = 0; i < files.length; i++) {
+      arraySprites[i] = {
+        nom: files[i],
+        imatge: base64_encode(files[i])
       }
-    })
+    }
   })
-  arraySprites=JSON.parse(arraySprites)
+  arraySprites = JSON.parse(arraySprites)
   res.json(arraySprites)
 })
 
