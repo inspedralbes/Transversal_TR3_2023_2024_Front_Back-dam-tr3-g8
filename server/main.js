@@ -99,23 +99,21 @@ app.post("/actulitzarSprite", async (req, res) => {
 })//substitueix la imatge per la nova
 
 app.get("/mirarSprites", async (req, res) => {
-  
+
   console.log("103")
   fs.readdir(spritesheets, function (err, files) {
-    var arraySprites=[]
+    var arraySprites = []
     console.log("105")
     for (let i = 0; i < files.length; i++) {
-      console.log(files[i])
       arraySprites[i] = {
         nom: files[i],
-        imatge: base64_encode(spritesheets+"/"+files[i])
+        imatge: base64_encode(spritesheets + "/" + files[i])
       }
-      console.log(arraySprites[i])
     }
     arraySprites = JSON.parse(JSON.stringify(arraySprites))
-  res.json(arraySprites)
+    res.json(arraySprites)
   })
-  
+
 })
 
 
@@ -173,13 +171,13 @@ app.get("/veureBroadcasts", async (req, res) => {
   res.json(missatges)
 })//reenvia tots els broadcasts de la base de dades a android
 
-app.post("/acabarPartida", async (req,res)=>{
-  dadespartida=req.body
+app.post("/acabarPartida", async (req, res) => {
+  dadespartida = req.body
   await operacionsUser.acabarPartida(dadespartida)
 })
 
-app.post("/comprarItems", async(req, res)=>{
-  producte=await operacionsAssets.obtenirAssetEspecific(req.body.producteComprat)
+app.post("/comprarItems", async (req, res) => {
+  producte = await operacionsAssets.obtenirAssetEspecific(req.body.producteComprat)
   await operacionsUser.comprarProducte(producte, req.body.monedas, req.body.user)
 })
 
