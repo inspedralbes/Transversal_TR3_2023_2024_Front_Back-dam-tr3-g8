@@ -20,7 +20,7 @@ app.use(cors(
     "optionsSuccessStatus": 204
   }
 ))
-const spritesheets = "../assetsNode";
+const spritesheets = "./assetsNode";
 const operacionsAssets = require("./operacionsMongo/operacionsAssets");
 const operacionsUser = require("./operacionsMongo/operacionsUsuaris");
 const operacionsProta = require("./operacionsMongo/operacionsProtagonista");
@@ -99,17 +99,23 @@ app.post("/actulitzarSprite", async (req, res) => {
 })//substitueix la imatge per la nova
 
 app.get("/mirarSprites", async (req, res) => {
-  let arraySprites = [{}]
+  
+  console.log("103")
   fs.readdir(spritesheets, function (err, files) {
+    var arraySprites=[]
+    console.log("105")
     for (let i = 0; i < files.length; i++) {
+      console.log(files[i])
       arraySprites[i] = {
         nom: files[i],
-        imatge: base64_encode(files[i])
+        imatge: base64_encode(spritesheets+"/"+files[i])
       }
+      console.log(arraySprites[i])
     }
-  })
-  arraySprites = JSON.parse(arraySprites)
+    arraySprites = JSON.parse(JSON.stringify(arraySprites))
   res.json(arraySprites)
+  })
+  
 })
 
 
