@@ -22,8 +22,6 @@ export default{
 <template>
   <div class="background">
     <div class="broadcast-message-box">
-      YEEHAW MESSAGE
-      <button class="broadcast-message-button" @click="broadcastMissatge(missatge.titol, missatge.cos)"> HEAR YE HEAR YE</button>
       <div>
         <p><b>Message Title:</b></p>
         <input v-model="missatge.titol" name="title" id="messageTitle" class="message-title-area" type="text">
@@ -33,6 +31,7 @@ export default{
         <textarea v-model="missatge.cos" class="message-text-area" name="text" id="messageText" cols="77" rows="20"></textarea>
       </div>
     </div>
+    <button class="broadcast-message-button" @click="broadcastMissatge(missatge.titol, missatge.cos)"> HEAR YE HEAR YE</button>
   </div>
 </template>
 

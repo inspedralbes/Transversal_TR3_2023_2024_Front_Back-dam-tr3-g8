@@ -1,8 +1,5 @@
 <script>
-import { getProta } from '~/CommunicationsManager';
-import { getEnemics } from '~/CommunicationsManager';
-import { postProtagonistaUpdate } from '~/CommunicationsManager';
-import { postEnemicUpdate } from '~/CommunicationsManager';
+import { getProta, getEnemics, postProtagonistaUpdate, postEnemicUpdate } from '~/CommunicationsManager';
 export default {
   data() {
     return {
@@ -126,7 +123,7 @@ export default {
           <p>Player Name: {{ prota.nom }}</p>
           <input name="nom" id="protaNom" v-model="prota.nom" type="text">
           <p>Max Hit Points: {{ prota.vida }}</p>
-          <input name="vida" id="protaVida" v-model="prota.vida" class="player-hit-points" type="range" min="0"
+          <input name="vida" id="protaVida" v-model="prota.vida" type="range" min="0"
             max="250" step="25">
           <p>Movement Speed: {{ prota.MS }}</p>
           <input name="MS" id="protaMS" v-model="prota.MS" type="number" min="5" max="25" step="5">
@@ -160,7 +157,7 @@ export default {
           <div class="indiv-npc-settings" v-show="visible">
             <p>Npc Name: {{ npc.nom }}</p>
             <p>Max Hit Points: {{ npc.vida }}</p>
-            <input v-model="npc.vida" class="player-hit-points" type="range" min="0" max="250" step="25">
+            <input v-model="npc.vida" type="range" min="0" max="250" step="25">
             <p>Movement Speed: {{ npc.MS }}</p>
             <input v-model="npc.MS" type="number" min="5" max="25" step="5">
             <p>Attack Damage: {{ npc.AD }}</p>
@@ -170,6 +167,8 @@ export default {
                 @click="updateNpcInfo(npc.id, npc.nom, npc.vida, npc.MS, npc.AD); visible = false">
                 Configura Info Enemic
               </button>
+              <button class="update-info-button"
+                @click="visible=false;">Cancel·la</button>
             </div>
           </div>
         </div>
@@ -227,6 +226,7 @@ export default {
 .indiv-npc-info {
   display: flex;
   justify-content: space-between;
+  padding-left: 10px;
 }
 
 .update-info-button {
