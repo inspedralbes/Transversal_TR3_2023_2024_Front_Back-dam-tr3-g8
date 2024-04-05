@@ -54,7 +54,7 @@ async function editarAsset(assetAModificar) {
             "nom": assetAModificar.nom,
             "tipus": assetAModificar.tipus,
             "Disponible": assetAModificar.Disponible,
-            "xInicial":assetAModificar.xInicial,
+            "xInicial": assetAModificar.xInicial,
             "xFinal": assetAModificar.xFinal,
             "yInicial": assetAModificar.yInicial,
             "yFinal": assetAModificar.yFinal,
@@ -70,6 +70,20 @@ async function editarAsset(assetAModificar) {
       });
   });
 }//sobrescriu el asset indicat amb les dades noves
+
+async function obtenirAssetEspecific(producte) {
+  return new Promise((resolve, reject) => {
+    taulaAssets
+      .findOne({ id: producte })
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+}//busca si existeix un usuari amb el usuarname i contrasenya proporcionat 
 
 async function crearAsset(assetNou) {
   return new Promise((resolve, reject) => {
@@ -104,5 +118,6 @@ module.exports = {
   editarAsset,
   obtenirTenda,
   connexioAssets,
-  crearAsset
+  crearAsset,
+  obtenirAssetEspecific
 }
