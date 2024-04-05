@@ -3,6 +3,7 @@ import { getTenda, postAssetUpdate, getSprites } from '~/CommunicationsManager';
 export default {
   data() {
     return {
+      decodedImgSrc: "",
       visible: false,
       assets: [],
       spritesheets: [],
@@ -18,7 +19,7 @@ export default {
       },
       spritesheet: {
         nom: "",
-        base64: ""
+        imatge: ""
       }
     }
   },
@@ -60,6 +61,7 @@ export default {
   created() {
     this.getAssets();
     this.getSpritesheets();
+
   }
 }
 </script>
@@ -109,11 +111,11 @@ export default {
     </div>
     <div class="full-spritesheet-window">
       <div class="indiv-spritesheet-selector">
-        <button class="select-previous-spritesheet-button" @click="">e</button>
+        <button class="select-previous-spritesheet-button" @click="console.log('previous spritesheet');">Anterior</button>
         <div v-for="spritesheet in spritesheets">
-          <p>Base: {{ spritesheet.nom }}</p>
+          <img class="spritesheet-view" :src="decodeBase64Image(spritesheet.imatge)" alt="img" height="400px">
         </div>
-        <button class="select-next-spritesheet-button" @click="">e</button>
+        <button class="select-next-spritesheet-button" @click="console.log('next spritesheet');">Següent</button>
       </div>
     </div>
   </div>
@@ -161,6 +163,7 @@ export default {
 }
 
 .full-spritesheet-window {
+  width: 700px;
   border-radius: 15px;
   border: 2px solid black;
   background-color: lightgrey;
@@ -171,13 +174,20 @@ export default {
   align-items: center;
 }
 
+.indiv-spritesheet-selector{
+  display: flex;
+  align-items: center;
+}
+
 .select-next-spritesheet-button {
+  margin-left: 20px;
   height: 25px;
   border-radius: 10px;
   src: url(../../assets-nuxt/right-arrow.png);
 }
 
 .select-previous-spritesheet-button {
+  margin-right: 20px;
   height: 25px;
   border-radius: 10px;
   src: url(../../assets-nuxt/left-arrow.png);
