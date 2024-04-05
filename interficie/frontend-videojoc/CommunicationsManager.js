@@ -27,10 +27,11 @@ export async function getEnemics(){
 }//recupera tots els enemics
 
 export async function getSprites(){
+    console.log('getting spritesheets')
     const response = await fetch(localURL + '/mirarSprites');
     const spritesSheets = await response.json();
     return spritesSheets
-    console.log(spritesSheets)
+    console.log('sprites: ',spritesSheets)
 }//recupera tots els spritesheets
 
 
