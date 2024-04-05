@@ -68,13 +68,11 @@ export default {
   <div class="background">
     <div class="assets-grid">
       <div class="indiv-asset-info" v-for="asset in assets">
-        <div>
-          <p>Nom: {{ asset.nom }}</p>
-          <p>Tipus: {{ asset.tipus }}</p>
-          <p>Disponible: {{ asset.disponible }}</p>
-          <button class="edit-asset-info-button" @click="visible = true; assetIndiv = asset">Configura Info
-            Asset</button>
-        </div>
+        <p>Nom: {{ asset.nom }}</p>
+        <p>Tipus: {{ asset.tipus }}</p>
+        <p>Disponible: {{ asset.disponible }}</p>
+        <button class="edit-asset-info-button" @click="visible = true; assetIndiv = asset">Configura Info
+          Asset</button>
       </div>
       <div class="indiv-asset-settings" v-show="visible">
         EASPORTS
@@ -113,7 +111,7 @@ export default {
       <div class="indiv-spritesheet-selector">
         <button class="select-previous-spritesheet-button" @click="">e</button>
         <div v-for="spritesheet in spritesheets">
-          <p>Base: {{ spritesheet.base64 }}</p>
+          <p>Base: {{ spritesheet.nom }}</p>
         </div>
         <button class="select-next-spritesheet-button" @click="">e</button>
       </div>
