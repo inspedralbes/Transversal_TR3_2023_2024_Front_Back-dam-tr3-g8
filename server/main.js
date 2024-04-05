@@ -108,7 +108,8 @@ app.get("/mirarSprites", async (req, res) => {
       }
     })
   })
-  arraySprites=JSON.parse(arraySprites)
+  arraySprites=JSON.parse(JSON.stringify(arraySprites))
+  console.log("sprites: ",arraySprites)
   res.json(arraySprites)
 })
 
