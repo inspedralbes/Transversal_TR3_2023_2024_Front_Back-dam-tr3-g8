@@ -29,7 +29,7 @@ const operacionsOdoo = require("./operacionsOdoo/operacionsOdoo");
 const operacionsBroadcast = require("./operacionsMongo/operacionsBroadcast");
 const operacionsPartida = require("./operacionsMongo/operacionsPartida")
 
-const PORT = 3817;
+const PORT = 3000;
 
 /*app.listen(PORT, async () => {
   await operacionsAssets.connexioAssets();
@@ -174,6 +174,10 @@ app.get("/veureBroadcasts", async (req, res) => {
 app.post("/acabarPartida", async (req, res) => {
   dadespartida = req.body
   await operacionsUser.acabarPartida(dadespartida)
+})
+
+app.post("/obtenirPropietat", async(req, res)=>{
+  
 })
 
 app.post("/comprarItems", async (req, res) => {

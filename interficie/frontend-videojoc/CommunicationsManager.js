@@ -4,6 +4,7 @@ const dockerURL=``//connexio Docker docker
 const assetsURL=''//connexio Docker assets
 const usersURL=''//connexio Docker users
 const partidaURL=''//connexio Docker partida
+const awsURl='http://ec2-13-51-165-128.eu-north-1.compute.amazonaws.com:3000'
 
 
 export async function getTenda(){
