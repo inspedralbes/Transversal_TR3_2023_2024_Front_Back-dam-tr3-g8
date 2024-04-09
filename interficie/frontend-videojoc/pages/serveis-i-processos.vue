@@ -3,7 +3,7 @@
 <template>
   <div class="background">
     <div class="service-selector">
-      YEEHAW S&P
+      POL GUAPO
     </div>
   </div>
 </template>
