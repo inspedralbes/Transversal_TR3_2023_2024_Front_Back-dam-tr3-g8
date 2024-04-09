@@ -3,6 +3,7 @@ import { getTenda, postAssetUpdate, getSprites } from '~/CommunicationsManager';
 export default {
   data() {
     return {
+      arrayIndex: 0,
       decodedImgSrc: "",
       visible: false,
       assets: [],
@@ -51,11 +52,19 @@ export default {
       const blob = new Blob([bytes], { type: "image/png" }); // Ajusta el tipo MIME según tu imagen
       return URL.createObjectURL(blob);
     },
-    selectPreviousSpritesheet() {
-
+    selectPreviousSpritesheet(arrayIndex: number) {
+      if(arrayIndex == 0){
+        this.arrayIndex = this.spritesheets.length -1;
+      } else {
+        this.arrayIndex -= 1;
+      }
     },
-    selectNextSpritesheet() {
-
+    selectNextSpritesheet(arrayIndex: number) {
+      if(arrayIndex == this.spritesheets.length -1){
+        this.arrayIndex = 0;
+      } else {
+        this.arrayIndex += 1;
+      }
     }
   },
   created() {
@@ -111,11 +120,11 @@ export default {
     </div>
     <div class="full-spritesheet-window">
       <div class="indiv-spritesheet-selector">
-        <button class="select-previous-spritesheet-button" @click="console.log('previous spritesheet');">Anterior</button>
+        <button class="select-previous-spritesheet-button" @click="console.log(arrayIndex); selectPreviousSpritesheet(arrayIndex);">Anterior</button>
         <div v-for="spritesheet in spritesheets">
-          <img class="spritesheet-view" :src="decodeBase64Image(spritesheet.imatge)" alt="img" height="400px">
+          <img class="spritesheet-view" :src="decodeBase64Image(spritesheets[arrayIndex].imatge)" alt="img" height="400px">
         </div>
-        <button class="select-next-spritesheet-button" @click="console.log('next spritesheet');">Següent</button>
+        <button class="select-next-spritesheet-button" @click="selectNextSpritesheet(arrayIndex);">Següent</button>
       </div>
     </div>
   </div>
