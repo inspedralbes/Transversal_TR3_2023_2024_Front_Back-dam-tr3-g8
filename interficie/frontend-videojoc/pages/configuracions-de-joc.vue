@@ -5,8 +5,21 @@ export default {
     return {
       visible: false,
       gameDifficulty: "",
-      infoProta: [],
-      infoEnemics: [],
+      infoProta: [{
+        id: 0,
+        nom: "",
+        vida: 0,
+        MS: 0,
+        AS: 0,
+        AD: 0,
+      }],
+      infoEnemics: [{
+        id: 0,
+        nom: "",
+        vida: 0,
+        MS: 0,
+        AD: 0
+      }],
       enemicsMostrats: [],
       enemicsFacil: [],
       enemicsNormal: [],
@@ -111,20 +124,20 @@ export default {
         <input v-model="gameDifficulty" id="hard-diff" type="radio" value="dificil"
           @click="difficultyChecker('dificil')">
         <label for="hard-diff">DIFICIL</label>
-        <button class="difficulty-filter-reset-button" @click="difficultyChecker('reset'); gameDifficulty = ''">RESET</button>
+        <button class="difficulty-filter-reset-button"
+          @click="difficultyChecker('reset'); gameDifficulty = ''">RESET</button>
       </div>
     </div>
     <div class="main-settings-tab">
       <div class="player-settings-tab">
         <div>
-          <p><b>PLAYER SETTINGS</b></p>
+          <p><b>CONFIGURACIONS DE JUGADOR</b></p>
         </div>
         <div v-for="prota in infoProta">
           <p>Player Name: {{ prota.nom }}</p>
           <input name="nom" id="protaNom" v-model="prota.nom" type="text">
           <p>Max Hit Points: {{ prota.vida }}</p>
-          <input name="vida" id="protaVida" v-model="prota.vida" type="range" min="0"
-            max="250" step="25">
+          <input name="vida" id="protaVida" v-model="prota.vida" type="range" min="0" max="250" step="25">
           <p>Movement Speed: {{ prota.MS }}</p>
           <input name="MS" id="protaMS" v-model="prota.MS" type="number" min="5" max="25" step="5">
           <p>Attack Speed: {{ prota.AS }}</p>
@@ -133,8 +146,8 @@ export default {
           <input name="AD" id="protaAD" v-model="prota.AD" type="number" min="0" step="10">
           <div>
             <button class="update-info-button"
-              @click="updateProtaInfo(prota.id, prota.nom, prota.vida, prota.MS, prota.AS, prota.AD)">Update Player
-              Info</button>
+              @click="updateProtaInfo(prota.id, prota.nom, prota.vida, prota.MS, prota.AS, prota.AD)">Configura Info
+              Jugador</button>
           </div>
         </div>
       </div>
@@ -142,7 +155,7 @@ export default {
     <div class="main-settings-tab">
       <div class="npc-settings-tab">
         <div>
-          <p><b>NPC SETTINGS</b></p>
+          <p><b>CONFIGURACIONS D'ENEMIC</b></p>
         </div>
         <div class="npc-sprite-grid">
           <div class="indiv-npc-info" v-for="enemic in enemicsMostrats">
@@ -167,8 +180,7 @@ export default {
                 @click="updateNpcInfo(npc.id, npc.nom, npc.vida, npc.MS, npc.AD); visible = false">
                 Configura Info Enemic
               </button>
-              <button class="update-info-button"
-                @click="visible=false;">Cancel·la</button>
+              <button class="update-info-button" @click="visible = false;">Cancel·la</button>
             </div>
           </div>
         </div>
