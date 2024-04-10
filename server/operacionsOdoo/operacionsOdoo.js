@@ -23,6 +23,23 @@ function registrarClient(username, correu) {
         });
     });
 }
+
+function enviarMails(mail, direccio){
+    correuAenviar={
+        body:mail.cos,
+        subject:mail.asunto,
+        destinatario:direccio
+    }
+    odoo.connect(function (err) {
+        if (err) { return console.log(err); }
+        //console.log('Connected to Odoo server.');
+        odoo.execute_kw('', 'create', correuAenviar, function (err, value) {
+            if (err) { return console.log(err); }
+            //console.log('Result: ', value);
+        });
+    });
+}
 module.exports={
-    registrarClient
+    registrarClient,
+    enviarMails
 }

@@ -171,7 +171,19 @@ async function crearUsuari(nouUser) {
       });
   });
 }
-
+async function recollirGmails(){
+  return new Promise((resolve, reject) => {
+    taulaUsuari
+      .find()
+      .then((result) => {
+        resolve(result);
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
+}
 module.exports = {
   logejarUser,
   updatePuntuacio,
@@ -179,5 +191,6 @@ module.exports = {
   connexioUsuari,
   acabarPartida,
   updateMonedas,
-  comprarProducte
+  comprarProducte,
+  recollirGmails
 }
