@@ -130,7 +130,7 @@ app.post("/loginUser", async (req, res) => {
   username = req.body.user;
   passwd = req.body.contrasenya
   passwd = desencriptar(passwd)
-  let validacio = operacionsUser.logejarUser(username, passwd);
+  let validacio = await operacionsUser.logejarUser(username, passwd);
   if (validacio != null) {
     let token;
     //Creating jwt token
