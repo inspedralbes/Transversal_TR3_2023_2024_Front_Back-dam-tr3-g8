@@ -115,18 +115,18 @@ export default {
           <button class="create-or-edit-asset-info-button" @click="visible = true; assetIndiv = asset; isEditing = true; isCreating = false;">Més Informació</button>
         </div>
         <div class="indiv-asset-settings" v-show="visible">
-          Modificar Asset
-          <p>Nom: {{ assetIndiv.nom }}</p>
+          <p><b>Modificar Asset</b></p>
+          <p><b>Nom:</b> {{ assetIndiv.nom }}</p>
           <input type="text" v-model="assetIndiv.nom">
-          <p>Tipus: {{ assetIndiv.tipus }}</p>
+          <p><b>Tipus:</b> {{ assetIndiv.tipus }}</p>
           <input type="text" v-model="assetIndiv.tipus">
-          <p>Coordenada X Inicial: {{ assetIndiv.xInicial }}</p>
+          <p><b>Coordenada X Inicial:</b> {{ assetIndiv.xInicial }}</p>
           <input type="number" v-model="assetIndiv.xInicial" min="0" step="10">
-          <p>Coordenada Y Inicial: {{ assetIndiv.yInicial }}</p>
+          <p><b>Coordenada Y Inicial:</b> {{ assetIndiv.yInicial }}</p>
           <input type="number" v-model="assetIndiv.yInicial" min="0" step="10">
-          <p>Coordenada X Final: {{ assetIndiv.xFinal }}</p>
+          <p><b>Coordenada X Final:</b> {{ assetIndiv.xFinal }}</p>
           <input type="number" v-model="assetIndiv.xFinal" min="0" step="10">
-          <p>Coordenada Y Final: {{ assetIndiv.yFinal }}</p>
+          <p><b>Coordenada Y Final:</b> {{ assetIndiv.yFinal }}</p>
           <input type="number" v-model="assetIndiv.yFinal" min="0" step="10">
           <br>
           <input type="checkbox" id="available" v-model="assetIndiv.disponible">

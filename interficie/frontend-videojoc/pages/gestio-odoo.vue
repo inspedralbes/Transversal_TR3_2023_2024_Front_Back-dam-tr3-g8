@@ -2,8 +2,21 @@
 
 <template>
   <div class="background">
-    <div class="odoo-info">
-      YEEHAW ODOO
+    <div> 
+      <div class="odoo-info">
+        E
+      </div>
+      <div class="odoo-info">
+        SPORTS
+      </div>
+    </div>
+    <div>
+      <div class="odoo-info">
+        A
+      </div>
+      <div class="odoo-info">
+        IT'S IN THE GAME
+      </div>
     </div>
   </div>
 </template>
@@ -25,9 +38,9 @@
   border: 2px solid black;
   background-color: lightgrey;
   opacity: 0.75;
-  padding: 10px;  display: flex;
+  padding: 10px;
+  display: flex;
   justify-content: center;
   align-items: center;
 }
-
 </style>

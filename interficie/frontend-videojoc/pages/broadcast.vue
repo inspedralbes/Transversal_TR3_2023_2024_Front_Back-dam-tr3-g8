@@ -1,16 +1,16 @@
 <script lang="ts">
 import { postEnviarBroadcast } from '~/CommunicationsManager';
-export default{
-  data(){
-    return{
-      missatge:{
+export default {
+  data() {
+    return {
+      missatge: {
         titol: "",
         cos: ""
       }
     }
   },
   methods: {
-    async broadcastMissatge(titol: string, cos: string){
+    async broadcastMissatge(titol: string, cos: string) {
       this.missatge.titol = titol;
       this.missatge.cos = cos;
       await postEnviarBroadcast(this.missatge);
@@ -22,14 +22,18 @@ export default{
 <template>
   <div class="background">
     <div class="broadcast-message-box">
-      <button class="broadcast-message-button" @click="broadcastMissatge(missatge.titol, missatge.cos)"> HEAR YE HEAR YE</button>
+      <span><b>Emissió Missatge</b></span>
       <div>
-        <p><b>Message Title:</b></p>
-        <input v-model="missatge.titol" name="title" id="messageTitle" class="message-title-area" type="text">
-      </div>
-      <div>
-        <p><b>Message Text:</b></p>
-        <textarea v-model="missatge.cos" class="message-text-area" name="text" id="messageText" cols="77" rows="20"></textarea>
+        <div>
+          <p><b>Títol:</b></p>
+          <input v-model="missatge.titol" name="title" id="messageTitle" class="message-title-area" type="text">
+        </div>
+        <div>
+          <p><b>Cos:</b></p>
+          <textarea v-model="missatge.cos" class="message-text-area" name="text" id="messageText" cols="77"
+          rows="20"></textarea>
+        </div>
+        <button class="broadcast-message-button" @click="broadcastMissatge(missatge.titol, missatge.cos)"><b>EMET MISSATGE</b></button>
       </div>
     </div>
   </div>
@@ -55,7 +59,7 @@ export default{
   padding: 15px;
   height: 470px;
   width: 590px;
-  font-family:'Courier New', Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .broadcast-message-button {
@@ -65,7 +69,7 @@ export default{
   margin-left: 460px;
   height: 25px;
   border-radius: 10px;
-  font-family:'Courier New', Courier, monospace;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 .message-title-area {
@@ -77,5 +81,4 @@ export default{
   max-width: 580px;
   max-height: 290px;
 }
-
 </style>: string: string
