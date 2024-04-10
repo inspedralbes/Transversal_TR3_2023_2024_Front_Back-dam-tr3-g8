@@ -3,6 +3,8 @@ import { getTenda, postAssetUpdate, postCrearAsset, getSprites } from '~/Communi
 export default {
   data() {
     return {
+      isEditing: false,      
+      isCreating: false,
       imatge: "",
       arrayIndex: 0,
       decodedImgSrc: "",
@@ -56,6 +58,10 @@ export default {
       this.spritesheets = await getSprites();
       console.log(this.spritesheets)
     },
+    async createAsset(newAsset: any) {
+      await postCrearAsset(newAsset);
+      this.getAssets();
+    },
     decodeBase64Image(base64String: string) {
       const binaryString = atob(base64String);
       const bytes = new Uint8Array(binaryString.length);
@@ -79,9 +85,6 @@ export default {
         this.arrayIndex += 1;
       }
     },
-    createSpritesheet() {
-
-    }
   },
   created() {
     this.getAssets();
@@ -94,17 +97,25 @@ export default {
 <template>
   <div class="background">
     <div class="assets-window">
-      <button class="add-asset-button" @click="visible = true;">HELLO</button>
+      <button class="add-asset-button" @click="visible = true; isCreating = true; isEditing = false; assetIndiv = {
+        id: assets.length + 1,
+        nom: '',
+        tipus: '',
+        xInicial: 0,
+        xFinal: 0,
+        yInicial: 0,
+        yFinal: 0,
+        disponible: false,
+      }">Crear Asset Nou</button>
       <div class="assets-grid">
-        <div class="indiv-asset-info" v-for="asset in assets">
+        <div  class="indiv-asset-info" v-for="asset in assets">
           <p>Nom: {{ asset.nom }}</p>
           <p>Tipus: {{ asset.tipus }}</p>
           <p>Disponible: {{ asset.disponible }}</p>
-          <button class="edit-asset-info-button" @click="visible = true; assetIndiv = asset">Configura Info
-            Asset</button>
+          <button class="create-or-edit-asset-info-button" @click="visible = true; assetIndiv = asset; isEditing = true; isCreating = false;">Més Informació</button>
         </div>
         <div class="indiv-asset-settings" v-show="visible">
-          EASPORTS
+          Modificar Asset
           <p>Nom: {{ assetIndiv.nom }}</p>
           <input type="text" v-model="assetIndiv.nom">
           <p>Tipus: {{ assetIndiv.tipus }}</p>
@@ -122,7 +133,7 @@ export default {
           <label for="available"> {{ assetIndiv.disponible }}</label>
           <br>
           <div class="button-container">
-            <button class="edit-asset-info-button" @click="updateAsset(
+            <button class="create-or-edit-asset-info-button" v-show="isEditing" @click="updateAsset(
               assetIndiv.id,
               assetIndiv.nom,
               assetIndiv.tipus,
@@ -131,8 +142,11 @@ export default {
               assetIndiv.xFinal,
               assetIndiv.yInicial,
               assetIndiv.yFinal
-            ); visible = false; console.log('updating asset');">Save</button>
-            <button class="edit-asset-info-button" @click="visible = false">Close</button>
+            ); visible = false; isEditing = false; console.log('updating asset');">Configura Info Asset</button>
+            <button class="create-or-edit-asset-info-button" v-show="isCreating" @click="createAsset(assetIndiv); visible = false; isCreating = false;">Crear Nou
+              Asset</button>
+            <br>
+            <button class="create-or-edit-asset-info-button" @click="visible = false">Close</button>
           </div>
         </div>
       </div>
@@ -177,7 +191,7 @@ export default {
   align-items: center;
 }
 
-.edit-asset-info-button {
+.create-or-edit-asset-info-button {
   height: 25px;
   border-radius: 10px;
   font-family: 'Courier New', Courier, monospace;

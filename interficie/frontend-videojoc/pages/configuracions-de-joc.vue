@@ -232,7 +232,7 @@ export default {
   padding: 10px;
   width: 200px;
   margin-left: 475px;
-  margin-top: -160px;
+  margin-top: -125px;
 }
 
 .indiv-npc-info {
