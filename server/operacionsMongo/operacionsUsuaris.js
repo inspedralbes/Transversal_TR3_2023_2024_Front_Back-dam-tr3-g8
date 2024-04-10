@@ -146,7 +146,7 @@ async function comprarProducte(producte, monedas, user) {
 
 async function buscarUsuari(username) {
   return new Promise((resolve, reject) => {
-    taulaAssets
+    taulaUsuari
       .findOne({ username: username })
       .then((result) => {
         resolve(result);
@@ -157,19 +157,19 @@ async function buscarUsuari(username) {
       });
   });
 }
-async function crearUsuari(usuari, contrasenya, email) {
-  let novaID = "";
-  let nouUsuari = {
-    username: usuari,
-    contrasenya: contrasenya,
-    email: email,
-    puntuacioMax: 0,
-    puntuacioMaxSemanal: 0,
-    puntuacioMaxDia: 0,
-    assetsPropietat: [],
-    monedas: 0,
-    id: novaID
-  }
+
+async function crearUsuari(nouUser) {
+  return new Promise((resolve, reject) => {
+    taulaUsuari
+      .insertOne(nouUser)
+      .then((result) => {
+        resolve();
+      })
+      .catch((err) => {
+        console.error(err);
+        reject(err);
+      });
+  });
 }
 
 module.exports = {

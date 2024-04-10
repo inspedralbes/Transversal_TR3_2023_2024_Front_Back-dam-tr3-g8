@@ -149,10 +149,19 @@ app.post("/loginUser", async (req, res) => {
 })//permet autoritzar el login del usuari
 
 app.post("/registerUser", async (req, res) => {
-  usuari = req.body.user
-  contrasenya = encriptar(req.body.passwd)
-  email = req.body.correu
-
+  nouUser = {
+    usuari: req.body.user,
+    contrasenya: encriptar(req.body.passwd),
+    email: req.body.correu,
+    maxPuntuacio: 0,
+    maxPuntuacioDiaria: 0,
+    maxPuntuacioSemanal: 0,
+    monedas: 0,
+    assetsPropietat: []
+  }
+  operacionsOdoo.registrarClient(req.body.user, req.body.correu)
+  await operacionsUser.crearUsuari(nouUser)
+  //cridar odoo registrar nou client
 })//crea un registre del usuari a la bbdd 
 
 app.get("/veureTenda", async (req, res) => {
@@ -176,8 +185,8 @@ app.post("/acabarPartida", async (req, res) => {
   await operacionsUser.acabarPartida(dadespartida)
 })
 
-app.post("/obtenirPropietat", async(req, res)=>{
-  
+app.post("/obtenirPropietat", async (req, res) => {
+
 })
 
 app.post("/comprarItems", async (req, res) => {
