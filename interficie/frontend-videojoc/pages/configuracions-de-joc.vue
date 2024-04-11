@@ -134,19 +134,19 @@ export default {
           <p><b>CONFIGURACIONS DE JUGADOR</b></p>
         </div>
         <div v-for="prota in infoProta">
-          <p>Player Name: {{ prota.nom }}</p>
+          <p>Nom: {{ prota.nom }}</p>
           <input name="nom" id="protaNom" v-model="prota.nom" type="text">
-          <p>Max Hit Points: {{ prota.vida }}</p>
+          <p>Vida: {{ prota.vida }}</p>
           <input name="vida" id="protaVida" v-model="prota.vida" type="range" min="0" max="250" step="25">
-          <p>Movement Speed: {{ prota.MS }}</p>
+          <p>Velocitat de Moviment: {{ prota.MS }}</p>
           <input name="MS" id="protaMS" v-model="prota.MS" type="number" min="5" max="25" step="5">
-          <p>Attack Speed: {{ prota.AS }}</p>
+          <p>Velocitat d'Atac: {{ prota.AS }}</p>
           <input name="AS" id="protaAS" v-model="prota.AS" type="number" min="5" max="50" step="5">
-          <p>Attack Damage: {{ prota.AD }}</p>
+          <p>Força: {{ prota.AD }}</p>
           <input name="AD" id="protaAD" v-model="prota.AD" type="number" min="0" step="10">
           <div>
             <button class="update-info-button"
-              @click="updateProtaInfo(prota.id, prota.nom, prota.vida, prota.MS, prota.AS, prota.AD)">Configura Info
+              @click="updateProtaInfo(prota.id, prota.nom, prota.vida, prota.MS, prota.AS, prota.AD); visible = false;">Configura Info
               Jugador</button>
           </div>
         </div>
@@ -168,12 +168,12 @@ export default {
             </div>
           </div>
           <div class="indiv-npc-settings" v-show="visible">
-            <p>Npc Name: {{ npc.nom }}</p>
-            <p>Max Hit Points: {{ npc.vida }}</p>
+            <p>Nom Enemic: {{ npc.nom }}</p>
+            <p>Vida: {{ npc.vida }}</p>
             <input v-model="npc.vida" type="range" min="0" max="250" step="25">
-            <p>Movement Speed: {{ npc.MS }}</p>
+            <p>Velocitat de Moviment: {{ npc.MS }}</p>
             <input v-model="npc.MS" type="number" min="5" max="25" step="5">
-            <p>Attack Damage: {{ npc.AD }}</p>
+            <p>Força: {{ npc.AD }}</p>
             <input v-model="npc.AD" type="number" min="0" step="10">
             <div>
               <button class="update-info-button"
@@ -232,7 +232,7 @@ export default {
   padding: 10px;
   width: 200px;
   margin-left: 475px;
-  margin-top: -125px;
+  margin-top: -150px;
 }
 
 .indiv-npc-info {
