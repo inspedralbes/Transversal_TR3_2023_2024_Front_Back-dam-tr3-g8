@@ -4,18 +4,18 @@
   <div class="background">
     <div> 
       <div class="odoo-info">
-        E
+        CORREUS
       </div>
       <div class="odoo-info">
-        SPORTS
+        ESTADISTIQUES
       </div>
     </div>
     <div>
       <div class="odoo-info">
-        A
+        PRODUCTES
       </div>
       <div class="odoo-info">
-        IT'S IN THE GAME
+        ...
       </div>
     </div>
   </div>
