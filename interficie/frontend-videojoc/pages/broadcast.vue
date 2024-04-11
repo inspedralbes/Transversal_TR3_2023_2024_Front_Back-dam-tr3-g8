@@ -1,10 +1,14 @@
 <script lang="ts">
-import { postEnviarBroadcast } from '~/CommunicationsManager';
+import { postEnviarBroadcast, postEnviarEmailOdoo } from '~/CommunicationsManager';
 export default {
   data() {
     return {
       missatge: {
         titol: "",
+        cos: ""
+      },
+      correuOdoo: {
+        asunto: "",
         cos: ""
       }
     }
@@ -14,7 +18,13 @@ export default {
       this.missatge.titol = titol;
       this.missatge.cos = cos;
       await postEnviarBroadcast(this.missatge);
+    },
+    async emailOdoo(asunto: string, cos: string) {
+      this.correuOdoo.asunto = asunto;
+      this.correuOdoo.cos = cos;
+      await postEnviarEmailOdoo(this.correuOdoo);
     }
+
   }
 }
 </script>
@@ -31,9 +41,15 @@ export default {
         <div>
           <p><b>Cos:</b></p>
           <textarea v-model="missatge.cos" class="message-text-area" name="text" id="messageText" cols="77"
-          rows="20"></textarea>
+            rows="20"></textarea>
         </div>
-        <button class="broadcast-message-button" @click="broadcastMissatge(missatge.titol, missatge.cos)"><b>EMET MISSATGE</b></button>
+        <div class="broadcast-button-container">
+
+          <button class="broadcast-message-button" @click="broadcastMissatge(missatge.titol, missatge.cos)"><b>EMET
+              MISSATGE CAP A ANDROID</b></button>
+          <button class="broadcast-message-button" @click="emailOdoo(missatge.titol, missatge.cos)"><b>EMET MISSATGE CAP
+              A ODOO</b></button>
+        </div>
       </div>
     </div>
   </div>
@@ -62,11 +78,15 @@ export default {
   font-family: 'Courier New', Courier, monospace;
 }
 
+.broadcast-button-container{
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .broadcast-message-button {
   padding: 3px;
   background-color: white;
   opacity: 0.75;
-  margin-left: 460px;
   height: 25px;
   border-radius: 10px;
   font-family: 'Courier New', Courier, monospace;
@@ -81,4 +101,4 @@ export default {
   max-width: 580px;
   max-height: 290px;
 }
-</style>: string: string
+</style>: string: string: any: any

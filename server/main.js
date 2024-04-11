@@ -118,6 +118,7 @@ app.get("/mirarSprites", async (req, res) => {
 
 app.get("/mailsOdoo", async (req, res)=>{
   mail=req.body.mail
+  console.log('correu en proces:', mail);
   usuaris=await operacionsUser.recollirGmails()
   for (let i=0; i<usuaris.length; i++){
     operacionsOdoo.enviarMails(mail, usuaris[i].email)
